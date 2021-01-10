@@ -2,13 +2,19 @@ package com.vobidu.espacolr.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.vobidu.espacolr.entities.Client;
 
 public class ClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message = "Campo Obrigatório")
 	private String name;
+	
+	@NotBlank(message = "Campo Obrigatório")
 	private String phone;
 	
 	public ClientDTO() {

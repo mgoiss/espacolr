@@ -2,13 +2,20 @@ package com.vobidu.espacolr.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Positive;
+
 import com.vobidu.espacolr.entities.Client;
 import com.vobidu.espacolr.entities.Scheduled;
 
 public class ScheduledDTO {
 	
 	private Long id;
+	
+	@FutureOrPresent(message = "A data de agendamento deve ser o dia atual ou futuro")
 	private LocalDate date;
+	
+	@Positive(message = "O preço deve ser um valor positivo")
 	private Double price;
 	private String status;
 	
