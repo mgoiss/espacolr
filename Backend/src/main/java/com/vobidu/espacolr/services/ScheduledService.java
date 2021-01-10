@@ -1,5 +1,6 @@
 package com.vobidu.espacolr.services;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vobidu.espacolr.dto.FreeDateDTO;
 import com.vobidu.espacolr.dto.ScheduledDTO;
 import com.vobidu.espacolr.entities.Client;
 import com.vobidu.espacolr.entities.Scheduled;
@@ -88,5 +90,23 @@ public class ScheduledService {
 		//Pegando o Client no Banco
 		Client client = clientRepository.getOne(dto.getClient().getId());
 		entity.setClient(client);
+	}
+
+	public FreeDateDTO findFreeDate(int year, int month) {
+		
+		FreeDateDTO freeDate = new FreeDateDTO();
+		LocalDate date = LocalDate.of(year, month, 1);
+		int count = date.lengthOfMonth();
+		
+		for (int i = 1; i <= count; i++) {
+			
+			date = date.withDayOfMonth(i);
+			
+			if (repository.findByDate(date).isEmpty()) {			
+				freeDate.addDate(date);				
+			}			
+		}
+		
+		return freeDate;
 	}
 }

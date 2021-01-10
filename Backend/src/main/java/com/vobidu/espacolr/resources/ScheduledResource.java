@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.vobidu.espacolr.dto.FreeDateDTO;
 import com.vobidu.espacolr.dto.ScheduledDTO;
 import com.vobidu.espacolr.services.ScheduledService;
 
@@ -50,6 +51,13 @@ public class ScheduledResource {
 		ScheduledDTO dto = service.findById(id);
 		
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@GetMapping(value = "/date/{year}&{month}")
+	public ResponseEntity<FreeDateDTO> findFreeTime(@PathVariable Long year, @PathVariable Long month) {
+		FreeDateDTO dto = service.findFreeDate(year.intValue(), month.intValue()); //Pegando os dados no banco por meio do medo findAll
+
+		return ResponseEntity.ok().body(dto); //Retornando a lista na requisição
 	}
 	
 	@PostMapping
