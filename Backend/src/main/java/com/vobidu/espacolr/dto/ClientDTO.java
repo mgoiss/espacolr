@@ -3,6 +3,7 @@ package com.vobidu.espacolr.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.vobidu.espacolr.entities.Client;
 
@@ -11,6 +12,7 @@ public class ClientDTO implements Serializable {
 	
 	private Long id;
 	
+	@Size(max = 60, message = "O nome deve ter no maximo 60 caracteres")
 	@NotBlank(message = "Campo Obrigatório")
 	private String name;
 	
