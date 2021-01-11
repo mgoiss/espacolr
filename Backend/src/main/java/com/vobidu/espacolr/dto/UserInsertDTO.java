@@ -1,8 +1,10 @@
 package com.vobidu.espacolr.dto;
 
+import com.vobidu.espacolr.services.validation.UserInsertValid;
 
 /*DTO para realizar o cadastro de um usuário, essa classe vai herdar
 da classe userDTO e vai conter tbm a senha do usuário*/
+@UserInsertValid
 public class UserInsertDTO extends UserDTO {
 	private static final long serialVersionUID = 1L;
 

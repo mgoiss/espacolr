@@ -100,10 +100,10 @@ public class ScheduledService {
 		
 		for (int i = 1; i <= count; i++) {
 			
-			date = date.withDayOfMonth(i);
+			date = date.withDayOfMonth(i); //Passando para o proximo dia
 			
 			if (repository.findByDate(date).isEmpty()) {			
-				freeDate.addDate(date);				
+				freeDate.addDate(date);		//Adicionando a data disponivel		
 			}			
 		}
 		
