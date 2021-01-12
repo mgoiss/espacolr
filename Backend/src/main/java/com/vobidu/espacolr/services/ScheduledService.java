@@ -102,9 +102,14 @@ public class ScheduledService {
 			
 			date = date.withDayOfMonth(i); //Passando para o proximo dia
 			
-			if (repository.findByDate(date).isEmpty()) {			
-				freeDate.addDate(date);		//Adicionando a data disponivel		
-			}			
+			if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+				Scheduled currentDate = repository.findByDate(date);
+				
+				if (currentDate == null) {	
+					
+					freeDate.addDate(date);		//Adicionando a data disponivel						
+				}	
+			}							
 		}
 		
 		return freeDate;

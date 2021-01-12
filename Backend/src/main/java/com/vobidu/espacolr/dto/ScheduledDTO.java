@@ -7,7 +7,9 @@ import javax.validation.constraints.Positive;
 
 import com.vobidu.espacolr.entities.Client;
 import com.vobidu.espacolr.entities.Scheduled;
+import com.vobidu.espacolr.services.validation.ScheduledValid;
 
+@ScheduledValid
 public class ScheduledDTO {
 	
 	private Long id;
