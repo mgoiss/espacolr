@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.vobidu.espacolr.services.exceptions.DatabaseException;
+import com.vobidu.espacolr.services.exceptions.DateException;
 import com.vobidu.espacolr.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -36,6 +37,18 @@ public class ResourceExceptionHandler {
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("Exceção no Banco de Dados");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(DateException.class) //Redirecionando as exception desse tipo para ser tratad onesse metodo
+	public ResponseEntity<StandardError> database(DateException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Exceção na busca por data disponivel");
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);

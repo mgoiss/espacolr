@@ -53,6 +53,8 @@ public class ScheduledResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	
+	//FAZER UMA VERIFICAÇÃO DO ANO SOLICITADO E O MES
 	@GetMapping(value = "/date/{year}&{month}")
 	public ResponseEntity<FreeDateDTO> findFreeTime(@PathVariable Long year, @PathVariable Long month) {
 		FreeDateDTO dto = service.findFreeDate(year.intValue(), month.intValue()); //Pegando os dados no banco por meio do medo findAll

@@ -19,6 +19,7 @@ import com.vobidu.espacolr.entities.Client;
 import com.vobidu.espacolr.entities.Scheduled;
 import com.vobidu.espacolr.repositories.ScheduledRepository;
 import com.vobidu.espacolr.services.exceptions.DatabaseException;
+import com.vobidu.espacolr.services.exceptions.DateException;
 import com.vobidu.espacolr.services.exceptions.ResourceNotFoundException;
 import com.vobidu.espacolr.repositories.ClientRepository;
 
@@ -93,6 +94,13 @@ public class ScheduledService {
 	}
 
 	public FreeDateDTO findFreeDate(int year, int month) {
+		
+		if(year < LocalDate.now().getYear()) {
+			throw new DateException("O ano informado é anterior ao ano atual");
+		}
+		else if (month < LocalDate.now().getMonthValue() && year == LocalDate.now().getYear()) {
+			throw new DateException("O mês informado é anterior ao mês atual");
+		}		
 		
 		FreeDateDTO freeDate = new FreeDateDTO();
 		LocalDate date = LocalDate.of(year, month, 1);
