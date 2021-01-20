@@ -1,0 +1,11 @@
+//Customizações do Bootstrap 
+
+//Variáveis do bootstrap de customização
+$theme-colors: (
+    "primary": #81C41D
+);
+
+$body-bg: #E5E5E5;
+$body-color: #263238;
+
+@import '~bootstrap/scss/bootstrap.scss';
