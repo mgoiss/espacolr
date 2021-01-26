@@ -1,0 +1,37 @@
+.main-nav {
+    height: 70px;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.main-manu {
+    display: flex;
+    font-size: 18px;
+    width: 380px;
+    justify-content: space-between;
+
+    
+}
+
+.main-manu-agenda {
+    text-align: end;
+    padding: 0px;
+    
+}
+
+a {
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.5);
+
+    &.active {
+        font-weight: bolder;
+        color: #ffffff;
+    }
+
+    &:hover {
+        color: #ffffff ;
+    }
+}
