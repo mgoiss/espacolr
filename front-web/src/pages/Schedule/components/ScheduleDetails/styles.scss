@@ -1,0 +1,92 @@
+.schedule-details-container {
+    margin-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.schedule-details {
+    padding: 50px 60px 90px 60px;
+}
+
+.schedule-details-up {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.schedule-details-btn {
+    text-align: end;
+
+    button{        
+        height: 60px;
+        width: 272px;
+
+        border-radius: 10px;
+    }
+    input{
+        height: 60px;
+        width: 272px;
+        margin-left: 28px;
+        border-radius: 10px;
+        color: #ffffff;
+    }
+}
+
+.schedule-details-goback {
+    display: flex;
+    align-items: center;
+}
+
+.icon-goback {
+    color:  #81C41D;
+    transform: rotate(-180deg);
+    margin-right: 30px;
+}
+
+.text-goback {
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #263238;
+}
+
+.schedule-details-card {
+    border: 1px solid #E1E1E1;
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 23px;    
+}
+
+.h1 {
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 87px;
+    letter-spacing: -0.015em;
+    color: #81C41D;
+}
+
+.h2 {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 49px;    
+    letter-spacing: -0.015em;
+}
+
+.h3 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #9E9E9E;
+}
+
+.schedule-details-card-value-total {
+    margin-left: 80px;
+}
+
+.schedule-details .schedule-price {
+    font-size: 48px;
+}
+
+.schedule-details .btn{
+    font-weight: bold;
+}

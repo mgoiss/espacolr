@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './core/components/Navbar';
 import Client from './pages/Client';
 import Schedule from './pages/Schedule';
+import ScheduleDetails from './pages/Schedule/components/ScheduleDetails';
 import Scheduling from './pages/Scheduling';
 import User from './pages/User';
 
@@ -16,6 +17,9 @@ const Routes = () => (
         <Switch> 
             <Route path="/" exact> 
                 <Schedule />
+            </Route>
+            <Route path="/:scheduleId" exact> 
+                <ScheduleDetails />
             </Route>
             <Route path="/user"> 
                 <User />
