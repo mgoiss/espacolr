@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Footer from './core/components/Footer';
 import Navbar from './core/components/Navbar';
 import Client from './pages/Client';
 import Schedule from './pages/Schedule';
@@ -18,7 +19,7 @@ const Routes = () => (
             <Route path="/" exact> 
                 <Schedule />
             </Route>
-            <Route path="/:scheduleId" exact> 
+            <Route path="/schedule/:scheduleId" exact> 
                 <ScheduleDetails />
             </Route>
             <Route path="/user"> 
@@ -31,6 +32,7 @@ const Routes = () => (
                 <Scheduling />
             </Route>
         </Switch>
+        <Footer />
     </BrowserRouter>
 );
 

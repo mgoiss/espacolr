@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2247" height="450" viewBox="0 0 2247 450">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 15.367px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #181818;
+        text-anchor: middle;
+        font-family: Montserrat;
+      }
+
+      .cls-2 {
+        font-size: 34.342px;
+        font-weight: 800;
+      }
+
+      .cls-3 {
+        fill: #a4c74b;
+        fill-rule: evenodd;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="0" y="0" width="642.281" height="450" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="0" y="0" width="642.281" height="450" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjQyLjI4MSIgaGVpZ2h0PSI0NTAiIHZpZXdCb3g9IjAgMCA2NDIuMjgxIDQ1MCI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogdXJsKCNsaW5lYXItZ3JhZGllbnQpOwogICAgICB9CiAgICA8L3N0eWxlPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHkxPSIzNjcuOTgxIiB4Mj0iNjQyLjI4MSIgeTI9IjgyLjAxOSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAuMDQiIHN0b3AtY29sb3I9IiNhNGM3NGIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjk2IiBzdG9wLWNvbG9yPSIjNzFhZTUxIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSI2NDIuMjgxIiBoZWlnaHQ9IjQ1MCIvPgo8L3N2Zz4K"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <text id="SOLUTION" class="cls-1" transform="translate(1436.864 369.584) scale(6.562 6.546)"><tspan x="0">SOLUTION</tspan></text>
+  <text id="ATEMPORAL" class="cls-2" transform="translate(1484.018 247.57) scale(6.546 6.551)"><tspan x="0">ATEMPORAL</tspan></text>
+  <path id="Logo" class="cls-3" d="M579.117,409.278L410.822,48.19,223.546,450.008H-0.006L209.73,0h46.99L65.967,409.278h43.882L300.6,0h43.883L153.731,409.278h44.918L389.4,0h43.142L642.279,450.008H509l-37.967-81.459H305.63L410.453,143.773l63.9,137.093h-44.18L410.422,238.5l-41.631,89.319H496.232L534.2,409.278h44.919Z"/>
+</svg>

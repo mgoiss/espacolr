@@ -1,35 +1,43 @@
 .schedule-card {
     //width: 246px;
-    height: 140px;
+    height: 100px;
     display: flex;
 }
 
 .schedule-check {
     border-radius: 10px 0px 0px 10px;
-    height: 140px;
+    height: 100px;
     width: 10px;
     background-color: #81C41D;
     display: flex;
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 .schedule-info {
-    margin: 15px 15px 25px 15px;
+    margin: 5px 5px 5px 15px;
     
     h5 {
         color: #263238;
-        font-size: 18px;
+        font-size: 12px;
         line-height: 25px;
         letter-spacing: -0.015em;
     }
 
     h6 {
-        color: #263238;
-        margin-top: 10px;
+        color: #263238;        
         font-style: normal;
         font-weight: 400;
-        font-size: 18px;
+        font-size: 12px;
         line-height: 25px;
         letter-spacing: -0.015em;
     }
+}
+
+.schedule-info .schedule-price {
+    font-size: 18px;
+}
+
+.schedule-info .schedule-currency {
+    margin-top: 7px;
+    font-size: 12px;
 }

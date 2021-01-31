@@ -12,5 +12,5 @@ public interface ScheduledRepository extends JpaRepository<Scheduled, Long>{
 	
 	//List<Scheduled> findByDate(LocalDate date);
 	
-	Scheduled findByDate(LocalDate date);
+	Scheduled findByDate(LocalDate date);	
 }

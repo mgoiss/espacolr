@@ -1,6 +1,8 @@
 package com.vobidu.espacolr.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -121,5 +123,23 @@ public class ScheduledService {
 		}
 		
 		return freeDate;
+	}
+
+	public List<ScheduledDTO> findMonth(int month) {
+		LocalDate date = LocalDate.of(LocalDate.now().getYear(), month, 1);
+		List<ScheduledDTO> list = new ArrayList<ScheduledDTO>();
+		
+		for (int i = 1; i <= date.lengthOfMonth(); i++) {
+			
+			date = date.withDayOfMonth(i); //Passando para o proximo dia
+			Scheduled currentDate = repository.findByDate(date);
+				
+			if (currentDate != null) {	
+					
+				list.add(new ScheduledDTO(currentDate, currentDate.getClient()));		//Adicionando a data disponivel						
+			}							
+		}
+		
+		return list;
 	}
 }
