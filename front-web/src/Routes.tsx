@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Footer from './core/components/Footer';
 import Navbar from './core/components/Navbar';
 import Client from './pages/Client';
@@ -16,10 +16,11 @@ const Routes = () => (
     <BrowserRouter> 
         <Navbar />
         <Switch> 
-            <Route path="/" exact> 
+            <Redirect from="/" to="/schedule" exact/>
+            <Route path="/schedule" exact> 
                 <Schedule />
             </Route>
-            <Route path="/schedule/:scheduleId" exact> 
+            <Route path="/schedule/:scheduleId"> 
                 <ScheduleDetails />
             </Route>
             <Route path="/user"> 

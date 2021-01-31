@@ -1,10 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
 import Price from '../../../../core/components/Price';
+import { Schedule } from '../../../../core/types/Schedule';
+import { makeRequest } from '../../../../core/utils/request';
 import './styles.scss';
 
+type ParamsType = {
+    scheduleId: string;
+}
+
 const ScheduleDetails = () => {
+
+    const { scheduleId } = useParams<ParamsType>();
+    const [schedule, setSchedule] = useState<Schedule>();
+
+    useEffect(() => {
+        makeRequest({ url: `/scheduleds/${scheduleId}`})
+        .then(response => setSchedule(response.data));
+    }, [scheduleId])
 
     return (
         <div className="schedule-details-container">
@@ -15,36 +30,47 @@ const ScheduleDetails = () => {
                         <h1 className="text-goback">VOLTAR</h1>
                     </Link>
 
-                    <div className=" col-10 schedule-details-btn">
-                        <button type="button" className="btn btn-outline-danger">CANCELAR</button>
-                        <input className="btn btn-primary" type="button" value="CONCLUIR" />
-                    </div>                    
+                    { schedule?.status != "Concluido" &&
+                        <div className=" col-10 schedule-details-btn">
+                            <button type="button" className="btn btn-outline-danger">CANCELAR</button>                       
+                            <input className="btn btn-primary" type="button" value="CONCLUIR" />
+                        </div>
+                    }                    
                 </div>
                 
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-7">
                         <div className="schedule-details-card">
-                            <h2 className="h2">José Manoel</h2>
-                            <h3 className="h3">Telefone: (75) 99999-9999  </h3>
+                            <h2 className="h2">{schedule?.client.name}</h2>
+                            <h3 className="h3">Telefone: {schedule?.client.phone}  </h3>
                         </div>
                         <div className="schedule-details-card">
                             <h3 className="h3">Data Aluguel</h3>
-                            <h1 className="h1">20/12/2020</h1>
+                            <h1 className="h1">{dayjs(schedule?.date).format('DD/MM/YYYY')}</h1>
                         </div>
                     </div>
-                    <div className="col-6 ">
+                    <div className="col-5 ">
                         <div className="schedule-details-card">
-                            <h2 className="h2">Pagamento:</h2>
                             <div className="d-flex">
                                 <div>
                                     <h3 className="h3">Pagamento Inicial</h3>
-                                    <Price price="250,00"/>
+                                    { schedule?.price && <Price price={schedule?.price }/>}
+                                    
                                 </div>
 
                                 <div className="schedule-details-card-value-total">
                                     <h3 className="h3">Valor Total</h3>
-                                    <Price  price="250,00"/>
+                                    { schedule?.price && <Price price={schedule?.price }/>}
                                 </div>
+                            </div>                            
+                        </div>
+                        <div className="schedule-details-card ">
+                            <div>
+                                <h3 className="h3">Status</h3>
+                                { schedule?.status == "Concluido" && <h1 className="concluded-text">{schedule?.status}</h1>}
+                                { schedule?.status == "Aguardando" && <h1 className="waiting-text">{schedule?.status}</h1>}
+                                { schedule?.status == "Camcelado" && <h1 className="canceled-text">{schedule?.status}</h1>}   
+                                
                             </div>                            
                         </div>
                     </div>

@@ -1,14 +1,23 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import Price from '../../../../core/components/Price';
+import { Schedule } from '../../../../core/types/Schedule';
 import './styles.scss';
 
-const ScheduleCard = () => (
+type Prop = {
+    schedule: Schedule;
+}
+
+const ScheduleCard = ({ schedule }: Prop) => (
     <div className="card-base border-radius-10 schedule-card">
-        <div className="schedule-check"> </div>   
+        { schedule.status == "Concluido" && <div className="schedule-check concluded"> </div>}
+        { schedule.status == "Aguardando" && <div className="schedule-check waiting"> </div>}
+        { schedule.status == "Camcelado" && <div className="schedule-check canceled"> </div>}   
+
         <div className="schedule-info">
-            <h5>José Manoel Morais</h5> 
-            <h6>26/01/2021</h6>
-            <Price  price="250,00"/>
+            <h5>{schedule.client.name}</h5> 
+            <h6>{dayjs(schedule.date).format('DD/MM/YYYY')}</h6>
+            <Price  price={schedule.price}/>
         </div>
                              
     </div>

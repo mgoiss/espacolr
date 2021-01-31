@@ -6,14 +6,14 @@ import { ReactComponent as LogoImage } from '../../assets/images/logo.svg';
 const Navbar = () => (
     <nav className="row bg-primary main-nav">
         <div className="col-2">
-            <Link to="/">
+            <Link to="/schedule">
                 <LogoImage className="main-image" />
             </Link>
         </div>
         <div className="col-8 p-0 row d-flex justify-content-center">
             <ul className="main-manu">
-                <li>
-                    <NavLink to="/" activeClassName="active" exact>
+                <li>                    
+                    <NavLink to="/schedule" activeClassName="active">
                         AGENDAMENTO
                     </NavLink>
                 </li>
