@@ -1,3 +1,0 @@
-Essa pasta core fica tudo o que é Global
-ou seja que será compartilhado por todas a
-aplicação.
