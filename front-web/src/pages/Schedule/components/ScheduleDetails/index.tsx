@@ -8,6 +8,7 @@ import { makeRequest } from 'core/utils/request';
 import ScheduleDetailsinfo from '../Loaders/ScheduleDetailsinfo';
 import ScheduleDetailsPrice from '../Loaders/ScheduleDetailsPrice';
 import './styles.scss';
+import TwoButtons from 'core/components/TwoButtons';
 
 type ParamsType = {
     scheduleId: string;
@@ -31,21 +32,21 @@ const ScheduleDetails = () => {
     }, [scheduleId])
 
     return (
-        <div className="schedule-details-container">
+        <div className="container-base">
             <div className="card-base border-radius-20 schedule-details">
                 <div className="row schedule-details-up">
-                    <Link to="/" className="col-2 schedule-details-goback">
+                    <Link to="/" className="schedule-details-goback">
                         <ArrowIcon className="icon-goback" />
                         <h1 className="text-goback">VOLTAR</h1>
                     </Link>
 
                     {!isLoader && (
                         schedule?.status !== undefined && (
-                            schedule?.status !== "Concluido" &&
-                            <div className=" col-10 schedule-details-btn">
-                                <button type="button" className="btn btn-outline-danger">CANCELAR</button>
-                                <input className="btn btn-primary" type="button" value="CONCLUIR" />
-                            </div>
+                            schedule?.status !== "Concluido" && (
+                                schedule?.status !== "Cancelado" && 
+                                    <TwoButtons valueGreen="CONCLUIR" valueRed="CANCELAR"/>
+                            )
+                            
                         )                       
                     )}
 
@@ -86,9 +87,9 @@ const ScheduleDetails = () => {
                                 <div className="schedule-details-card ">
                                     <div>
                                         <h3 className="h3">Status</h3>
-                                        {schedule?.status === "Concluido" && <h1 className="concluded-text">{schedule?.status}</h1>}
-                                        {schedule?.status === "Aguardando" && <h1 className="waiting-text">{schedule?.status}</h1>}
-                                        {schedule?.status === "Camcelado" && <h1 className="canceled-text">{schedule?.status}</h1>}
+                                        {schedule?.status === "Concluido" && <h1 className="text-primary">{schedule?.status}</h1>}
+                                        {schedule?.status === "Aguardando" && <h1 className="text-warning">{schedule?.status}</h1>}
+                                        {schedule?.status === "Cancelado" && <h1 className="text-danger">{schedule?.status}</h1>}
 
                                     </div>
                                 </div>

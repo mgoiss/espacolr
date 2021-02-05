@@ -7,6 +7,14 @@
     position: fixed;
     bottom: 0px;
     padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.container-info {
+    display: flex;
+    width: 1000px;
+    height: 45px;
+    justify-content: space-between;
 }
 
 .footer-container-image {
@@ -20,24 +28,8 @@
     width: 200px;
 }
 
-.footer-manu {
-    display: flex;
-    font-size: 18px;
-    justify-content: space-evenly;
-}
-
-.footer-manu-text {
-    color: #000000;
-
-    &:hover {
-        text-decoration: none;
-        color: unset; //Zerando o comportamento padrão de mudar de cor quando passa o mouse por cima
-      }
-}
-
 .footer-container-copyright {
     padding: 0px;
-    align-items: flex-end;
     margin-top: 5px;
 
     p {

@@ -34,7 +34,7 @@ const Schedule = () => {
     }, []);
 
     return( 
-        <div className="schedule-container">
+        <div className="container-base">
             <div className="schedule-filter border-radius-10 card-base">
                 <h3>Filtros</h3>
             </div>            

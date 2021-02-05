@@ -36,26 +36,7 @@ a {
   box-shadow: 0px 4px 20px rgba(116, 116, 116, 0.25);
 }
 
-.concluded {
-  background-color: #81C41D;
-}
-
-.concluded-text {
-  color: #81C41D;
-}
-
-.waiting {
-  background-color: #ffef10;
-}
-
-.waiting-text {
-  color: #ffef10;
-}
-
-.canceled {
-  background-color: #dc3545;
-}
-
-.canceled-text {
-  color: #dc3545;
+.container-base {
+  padding: 24px 40px 24px 40px;
+  height: calc(100vh - 125px);
 }

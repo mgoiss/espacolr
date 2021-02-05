@@ -15,24 +15,24 @@ const Routes = () => (
     //Route - Define a URL da pagina
     <BrowserRouter> 
         <Navbar />
-        <Switch> 
-            <Redirect from="/" to="/schedule" exact/>
-            <Route path="/schedule" exact> 
-                <Schedule />
-            </Route>
-            <Route path="/schedule/:scheduleId"> 
-                <ScheduleDetails />
-            </Route>
-            <Route path="/user"> 
-                <User />
-            </Route>
-            <Route path="/client"> 
-                <Client />
-            </Route>
-            <Route path="/scheduling"> 
-                <Scheduling />
-            </Route>
-        </Switch>
+            <Switch> 
+                <Redirect from="/" to="/schedule" exact/>
+                <Route path="/schedule" exact> 
+                    <Schedule />
+                </Route>
+                <Route path="/schedule/:scheduleId"> 
+                    <ScheduleDetails />
+                </Route>
+                <Route path="/user"> 
+                    <User />
+                </Route>
+                <Route path="/client"> 
+                    <Client />
+                </Route>
+                <Route path="/scheduling"> 
+                    <Scheduling />
+                </Route>
+            </Switch>    
         <Footer />
     </BrowserRouter>
 );
