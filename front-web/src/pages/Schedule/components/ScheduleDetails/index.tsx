@@ -8,7 +8,6 @@ import { makeRequest } from 'core/utils/request';
 import ScheduleDetailsinfo from '../Loaders/ScheduleDetailsinfo';
 import ScheduleDetailsPrice from '../Loaders/ScheduleDetailsPrice';
 import './styles.scss';
-import TwoButtons from 'core/components/TwoButtons';
 
 type ParamsType = {
     scheduleId: string;
@@ -32,7 +31,7 @@ const ScheduleDetails = () => {
     }, [scheduleId])
 
     return (
-        <div className="container-base">
+        <div className="container-general-base">
             <div className="card-base border-radius-20 schedule-details">
                 <div className="row schedule-details-up">
                     <Link to="/" className="schedule-details-goback">
@@ -43,11 +42,14 @@ const ScheduleDetails = () => {
                     {!isLoader && (
                         schedule?.status !== undefined && (
                             schedule?.status !== "Concluido" && (
-                                schedule?.status !== "Cancelado" && 
-                                    <TwoButtons valueGreen="CONCLUIR" valueRed="CANCELAR"/>
+                                schedule?.status !== "Cancelado" &&
+                                <div className="button-container">
+                                    <button type="button" className="btn btn-outline-danger">CANCELAR</button>
+                                    <button className="btn btn-primary text-white button-green" type="button">CONCLUIR</button>
+                                </div>
                             )
-                            
-                        )                       
+
+                        )
                     )}
 
                 </div>

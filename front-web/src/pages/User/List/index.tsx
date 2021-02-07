@@ -6,7 +6,7 @@ const List = () => {
     const history = useHistory();
 
     const handleCreate = () => {
-        history.push('/user/create')
+        history.push('/user/create');
     }
 
     return (

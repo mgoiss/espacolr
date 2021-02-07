@@ -23,7 +23,7 @@ const Routes = () => (
                 <Route path="/schedule/:scheduleId"> 
                     <ScheduleDetails />
                 </Route>
-                <Route path="/user"> 
+                <Route path="/user" > 
                     <User />
                 </Route>
                 <Route path="/client"> 

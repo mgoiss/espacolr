@@ -6,7 +6,7 @@ import Form from './Form';
 
 const User = () => {
     return( 
-        <div className="container-base">
+        <div className="container-general-base">
             <Switch>
                 <Route path="/user" exact>
                     <List />
