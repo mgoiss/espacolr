@@ -13,17 +13,17 @@ const Navbar = () => (
         <div className="col-8 p-0 row d-flex justify-content-center">
             <ul className="main-manu">
                 <li>                    
-                    <NavLink to="/schedule" activeClassName="active">
+                    <NavLink to="/admin/schedule" activeClassName="active">
                         AGENDAMENTO
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/user" activeClassName="active">
+                    <NavLink to="/admin/user" activeClassName="active">
                         USUÁRIOS
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/client" activeClassName="active">
+                    <NavLink to="/admin/client" activeClassName="active">
                         CLIENTES
                     </NavLink>
                 </li>

@@ -31,10 +31,10 @@ const ScheduleDetails = () => {
     }, [scheduleId])
 
     return (
-        <div className="container-general-base">
+        <div>
             <div className="card-base border-radius-20 schedule-details">
                 <div className="row schedule-details-up">
-                    <Link to="/" className="schedule-details-goback">
+                    <Link to="/admin" className="schedule-details-goback">
                         <ArrowIcon className="icon-goback" />
                         <h1 className="text-goback">VOLTAR</h1>
                     </Link>

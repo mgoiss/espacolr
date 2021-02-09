@@ -6,15 +6,15 @@ import Form from './Form';
 
 const User = () => {
     return( 
-        <div className="container-general-base">
+        <div>
             <Switch>
-                <Route path="/user" exact>
+                <Route path="/admin/user" exact>
                     <List />
                 </Route>
-                <Route path="/user/create">
+                <Route path="/admin/user/create">
                     <Form />
                 </Route>
-                <Route path="/user/:userId">
+                <Route path="/admin/user/:userId">
                     <h1>Edição de Usuários</h1>
                 </Route>    
             </Switch>

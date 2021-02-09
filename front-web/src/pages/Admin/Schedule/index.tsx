@@ -34,14 +34,14 @@ const Schedule = () => {
     }, []);
 
     return( 
-        <div className="container-general-base">
+        <div>
             <div className="schedule-filter border-radius-10 card-base">
                 <h3>Filtros</h3>
             </div>            
             <div className="schedule-box"> 
                 {isLoading ? /*se true*/ <ScheduleCardLoader /> : /*se false*/ (
                     scheduleResponse?.content.map(Schedule => (
-                        <Link to={`/schedule/${Schedule.id}`} key={Schedule.id}>
+                        <Link to={`/admin/schedule/${Schedule.id}`} key={Schedule.id}>
                             <ScheduleCard schedule={Schedule}/>
                         </Link>
                     ))
