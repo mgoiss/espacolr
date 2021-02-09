@@ -6,7 +6,7 @@ import { ReactComponent as LogoImage } from '../../assets/images/logo.svg';
 const Navbar = () => (
     <nav className="row bg-primary main-nav">
         <div className="col-2">
-            <Link to="/schedule">
+            <Link to="/admin/schedule">
                 <LogoImage className="main-image" />
             </Link>
         </div>
