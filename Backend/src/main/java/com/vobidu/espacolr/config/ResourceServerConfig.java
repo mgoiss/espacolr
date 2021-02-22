@@ -52,7 +52,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		//Criando as rotas permitidas
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll() //Permitindo todas as rotas do vetor publico
-		//.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll() //Permitindo todas as rotas do vetor OPERATO_OR_ADMIN no metodo GET
+		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll() //DEPOIS COMENTAR ESSE CODIGO //Permitindo todas as rotas do vetor OPERATO_OR_ADMIN no metodo GET
 		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN") //Permitindo as rotas do vetor OPERATOR_OR_ADMIN onde o usuário logado seja do tipo OPERATO OU ADMIN
 		.antMatchers(ADMIN).hasRole("ADMIN") //Permitindo a rota do vetor ADMIN apenas quem tá logao como Admin
 		.anyRequest().authenticated(); //Bloqueando para os usuário sem autenticação qualquer outra rota 
@@ -79,5 +79,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			= new FilterRegistrationBean<>(new CorsFilter(corsConfigurationSource()));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
-	}	
+	}
 }

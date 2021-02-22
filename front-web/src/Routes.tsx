@@ -1,15 +1,16 @@
 import Admim from 'pages/Admin';
 import Auth from 'pages/Auth';
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import Scheduling from './pages/Scheduling';
+import history from './core/utils/history'
 
 
 const Routes = () => (
     //O BrowserRouter - encapsula e gerencia todas as rotas do sistema
     //Switch - Realiza a decisão que qual rota ele vai redenrizar
     //Route - Define a URL da pagina
-    <BrowserRouter>
+    <Router history={history}>
         <Switch>
             <Route path="/scheduling">
                 <Scheduling />
@@ -23,7 +24,7 @@ const Routes = () => (
                 <Admim />
             </Route>
         </Switch>
-    </BrowserRouter>
+    </Router>
 );
 
 export default Routes;
