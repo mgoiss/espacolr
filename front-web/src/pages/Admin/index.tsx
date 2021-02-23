@@ -1,29 +1,30 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import Footer from 'core/components/Footer';
 import Navbar from 'core/components/Navbar';
 import Schedule from './Schedule';
 import User from './User';
 import Client from './Client';
 import ScheduleDetails from './Schedule/components/ScheduleDetails';
+import PrivateRoute from 'core/components/Routes/PrivateRouts';
 
 const Admim = () => (
     <div>
         <Navbar />
         <div className="container-general-base">
             <Switch>
-                <Route path="/admin/schedule" exact>
+                <PrivateRoute path="/admin/schedule" exact>
                     <Schedule />
-                </Route>
-                <Route path="/admin/schedule/:scheduleId">
+                </PrivateRoute>
+                <PrivateRoute path="/admin/schedule/:scheduleId" >
                     <ScheduleDetails />
-                </Route>
-                <Route path="/admin/user">
+                </PrivateRoute>
+                <PrivateRoute path="/admin/user" allowedRoutes={['ROLE_ADMIN']}>
                     <User />
-                </Route>
-                <Route path="/admin/client">
+                </PrivateRoute>
+                <PrivateRoute path="/admin/client" >
                     <Client />
-                </Route>
+                </PrivateRoute>
             </Switch>
         </div>
         <Footer />
