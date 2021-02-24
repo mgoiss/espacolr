@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './styles.scss';
 import { ReactComponent as LogoImage } from '../../assets/images/logo.svg';
+import { isAllowedByRole } from 'core/utils/auth';
 
 const Navbar = () => (
     <nav className="row bg-primary main-nav">
@@ -12,28 +13,31 @@ const Navbar = () => (
         </div>
         <div className="col-8 p-0 row d-flex justify-content-center">
             <ul className="main-manu">
-                <li>                    
+                <li>
                     <NavLink to="/admin/schedule" activeClassName="active">
                         AGENDAMENTO
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/admin/user" activeClassName="active">
-                        USUÁRIOS
+                {isAllowedByRole(['ROLE_ADMIN']) && (
+                    <li>
+                        <NavLink to="/admin/user" activeClassName="active">
+                            USUÁRIOS
                     </NavLink>
-                </li>
+                    </li>
+                )}
                 <li>
                     <NavLink to="/admin/client" activeClassName="active">
                         CLIENTES
                     </NavLink>
                 </li>
+
             </ul>
-        </div>  
+        </div>
         <div className="col-2 main-manu-agenda">
             <NavLink to="/scheduling" className="col-2 main-manu-agenda" activeClassName="active">
                 AGENDAR
             </NavLink>
-        </div>      
+        </div>
     </nav>
 );
 
