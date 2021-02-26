@@ -14,15 +14,24 @@ const BaseForm = ({ title, children }: Props) => {
         history.push('./');
     }
 
-    return(
+    return (
         <div className="base-form card-base border-radius-20">
             <h1 className="base-form-title">
                 {title}
             </h1>
             {children}
             <div className="base-form-actions">
-                <button type="button" className="btn btn-outline-danger nr-3" onClick={handleCancel}>CANCELAR</button>
-                <button className="btn btn-primary text-white button-green" type="button">CADASTRAR</button>
+                <button
+                    type="button"
+                    className="btn btn-outline-danger nr-3" onClick={handleCancel}
+                >
+                    CANCELAR
+                </button>
+                <button
+                    className="btn btn-primary text-white button-green"
+                >
+                    CADASTRAR
+                </button>
             </div>
         </div>
     )

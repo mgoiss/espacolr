@@ -1,43 +1,39 @@
 .base-form {
-    width: 1055px; //Configuração temporaria
-    padding: 70px 45px 50px 45px;
+  width: 1055px; //Configuração temporaria
+  padding: 70px 45px 50px 45px;
 }
 
 .base-form-title {
-    font-size: 24px;
-    line-height: 33px;
-    letter-spacing: -0.015em;
-    color: #263238;
-    text-transform: uppercase;
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: -0.015em;
+  color: #263238;
+  text-transform: uppercase;
+  margin-bottom: 45px;
 }
 
 .base-form-actions .button-container {
-    margin-top: 75px;
+  margin-top: 75px;
 }
-
-
-
-
 
 //TEMP BUTTONS
 .base-form-actions {
-    margin-top: 70px;
-    text-align: right;
-    padding: 0px 15px 0px 15px;
+  margin-top: 70px;
+  text-align: right;
+  padding: 0px 15px 0px 15px;
 
-    button{        
-        height: 60px;
-        width: 272px;
-        border-radius: 10px;  
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 22px;
-        text-align: center;
-        letter-spacing: -0.015em;      
-    }
-
+  button {
+    height: 60px;
+    width: 272px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.015em;
+  }
 }
 
 .button-green {
-    margin-left: 28px;
+  margin-left: 28px;
 }

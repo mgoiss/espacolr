@@ -1,5 +1,7 @@
 import BaseForm from 'core/components/BaseForm';
-import React, { useState } from 'react';
+import { makePrivateRequest } from 'core/utils/request';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import './styles.scss';
 
 type FormState = {
@@ -7,61 +9,101 @@ type FormState = {
     lastName: string;
     email: string;
     password: string;
-    roles: string;
 }
-
-type FormEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
 
 const Form = () => {
 
-    const [formData, setFormData] = useState<FormState>({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        roles: ''
-    });
+    const { register, handleSubmit, errors } = useForm<FormState>();
 
-    const handleOnChange = (event: FormEvent) => {
-        //Pegando o nome do campo e o seu valor
-        const name = event.target.name;
-        const value = event.target.value;
-        
-        setFormData(data => ({ ...data, [name]: value}));
+    const onSubmit = (data: FormState) => {
+        makePrivateRequest({ url: '/users', method: 'POST', data })
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-    }
-
-    return(
+    return (
         <div className="container-form">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <BaseForm title="CADASTRO UM USUÁRIO">
                     <div className="row">
                         <div className="col-6">
-                            <input value={formData.firstName} name="firstName" onChange={handleOnChange} type="text" className="form-control" placeholder="Nome" />                        
-                            <input value={formData.email} name="email" onChange={handleOnChange} type="text" className="form-control" placeholder="Email" /> 
-                            <input value={formData.password} name="password" onChange={handleOnChange} type="text" className="form-control" placeholder="Digite aqui a Senha" />                      
+                            <div className="mb-4">
+                                <input
+                                    name="firstName"
+                                    type="text"
+                                    className={`form-control input-base ${errors.firstName ? 'is-invalid' : ''}`}
+                                    placeholder="Nome"
+                                    ref={register({
+                                        required: "Campo obrigatório",
+                                        minLength: { value: 3, message: 'O campo deve ter no mínimo 3 caracteres' },
+                                        maxLength: { value: 25, message: 'O campo deve ter no maximo 25 caracteres' }
+                                    })}
+                                />
+                                {errors.firstName && (
+                                    <div className="invalid-feedback d-block">
+                                        {errors.firstName.message}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <input
+                                    name="email"
+                                    type="email"
+                                    className={`form-control input-base ${errors.email ? 'is-invalid' : ''}`}
+                                    placeholder="Email"
+                                    ref={register({
+                                        required: "Campo obrigatório",
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "Email inválido"
+                                        }
+                                    })}
+                                />
+                                {errors.email && (
+                                    <div className="invalid-feedback d-block">
+                                        {errors.email.message}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <input
+                                    name="password"
+                                    type="password"
+                                    className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
+                                    placeholder="Digite aqui a Senha"
+                                    ref={register({ required: "Campo obrigatório" })}
+                                />
+                                {errors.password && (
+                                    <div className="invalid-feedback d-block">
+                                        {errors.password.message}
+                                    </div>
+                                )}
+                                <p className="form-text-info mt-2"> A sua senha deve ter pelo menos 8 caracteres e conter pelo menos um número</p>
+                            </div>
                         </div>
                         <div className="col-6">
-                            <input value={formData.lastName} name="lastName" onChange={handleOnChange} type="text" className="form-control" placeholder="Sobrenome" />
-                            <select 
-                                value={formData.roles}
-                                name="roles" 
-                                onChange={handleOnChange}
-                                className="form-control mb-5" 
-                            >
-                                <option value="2">ADMINISTRADOR</option>
-                                <option value="1">OPERADOR</option>
-                            </select>
-                            {/* <input value={formData.password} name="password" onChange={handleOnChange} type="text" className="form-control" placeholder="Repita aqui a Senha" /> */}
+                            <div className="mb-4">
+                                <input
+                                    name="lastName"
+                                    type="text"
+                                    className={`form-control input-base ${errors.lastName ? 'is-invalid' : ''}`}
+                                    placeholder="Sobrenome"
+                                    ref={register({
+                                        required: "Campo obrigatório",
+                                        minLength: { value: 3, message: 'O campo deve ter no mínimo 3 caracteres' },
+                                        maxLength: { value: 25, message: 'O campo deve ter no maximo 25 caracteres' }
+                                    })}
+                                />
+
+                                {errors.lastName && (
+                                    <div className="invalid-feedback d-block">
+                                        {errors.lastName.message}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </BaseForm>
             </form>
-        </div>        
+        </div>
     )
 }
 

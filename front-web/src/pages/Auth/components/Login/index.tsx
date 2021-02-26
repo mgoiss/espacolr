@@ -7,7 +7,7 @@ import './styles.scss';
 import { makeLogin } from 'core/utils/request';
 import { saveSessionData } from 'core/utils/auth';
 
-type FormData = {
+type FormState = {
     username: string;
     password: string;
 }
@@ -17,14 +17,14 @@ type locationState = {
 }
 
 const Login = () => {
-    const { register, handleSubmit, errors } = useForm<FormData>();
+    const { register, handleSubmit, errors } = useForm<FormState>();
     const [hasError, setHasError] = useState(false);
     const history = useHistory();
     const location = useLocation<locationState>();
 
-    const { from } = location.state || { from: { pathname: "/admin" }};
+    const { from } = location.state || { from: { pathname: "/admin" } };
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: FormState) => {
         makeLogin(data)
             .then(response => {
                 setHasError(false);
@@ -46,17 +46,17 @@ const Login = () => {
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="margin-bottom-30">
                     <input
-                        className={`form-control input-base-green ${errors.username ? 'is-invalid' : ''}`}
+                        className={`form-control input-base ${errors.username ? 'is-invalid' : ''}`}
                         type="email"
                         placeholder="Email"
                         name="username"
                         ref={register({
                             required: "Campo obrigatório",
                             pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: "Email inválido"
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Email inválido"
                             }
-                          })}
+                        })}
                     />
                     {errors.username && (
                         <div className="invalid-feedback d-block">
@@ -66,7 +66,7 @@ const Login = () => {
                 </div>
                 <div>
                     <input
-                        className={`form-control input-base-green ${errors.password ? 'is-invalid' : ''}`}
+                        className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
                         type="password"
                         placeholder="Senha"
                         name="password"
