@@ -2,6 +2,8 @@ import BaseForm from 'core/components/BaseForm';
 import { makePrivateRequest } from 'core/utils/request';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './styles.scss';
 
 type FormState = {
@@ -12,11 +14,21 @@ type FormState = {
 }
 
 const Form = () => {
-
     const { register, handleSubmit, errors } = useForm<FormState>();
+    const history = useHistory();
 
     const onSubmit = (data: FormState) => {
         makePrivateRequest({ url: '/users', method: 'POST', data })
+            .then(() => {
+                toast.success('Usuário cadastrado com sucesso!', {
+                    style: { background: '#81c41d' },
+                    position: "bottom-right"
+                });
+                history.push('/admin/user');
+            })
+            .catch(() => {
+                toast.error('Error ao salvar usuário!')
+            })
     }
 
     return (
