@@ -5,21 +5,29 @@
   padding-right: 40px;
   margin-left: 0;
   margin-right: 0;
+  color: #ffffff;
 }
 
 .main-manu {
   display: flex;
+  justify-content: center;
+
+  //Pegando a segunda li do main-menu
+  li:nth-child(2) {
+    margin-left: 20px;
+  }
+  //Pegando a terceira li do main-menu
+  li:nth-child(3) {
+    margin-left: 20px;
+  }
+  //Pegando o quarto li do main-menu
+  li:nth-child(4) {
+    margin-left: 20px;
+  }
+}
+
+.nav-link {
   font-size: 18px;
-  width: 380px;
-  justify-content: space-evenly;
-}
-
-.main-manu-agenda {
-  text-align: end;
-  padding: 0px;
-}
-
-a {
   font-style: normal;
   color: rgba(255, 255, 255, 0.5);
 
@@ -31,4 +39,7 @@ a {
   &:hover {
     color: #ffffff;
   }
+}
+
+.main-manu-end {
 }

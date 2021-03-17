@@ -21,14 +21,14 @@ const PrivateRoute = ({ children, path, allowedRoutes, exact }: Props) => {
                     return (
                         <Redirect
                          to={{
-                             pathname: "/admin/auth/login",
+                             pathname: "/auth/login",
                              state: { from: location }
                          }}
                         />
                     )
                 } else if (isAuthenticated() && !isAllowedByRole(allowedRoutes)) { //Verificando se o usuário está autenticado e tem permissão de acessar aquela rota
                     return (
-                        <Redirect to={{ pathname: "/admin/auth/login" }} />
+                        <Redirect to={{ pathname: "/auth/login" }} />
                     )
                 }
 

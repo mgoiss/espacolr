@@ -79,7 +79,7 @@ const Login = () => {
                     )}
                 </div>
 
-                <Link to="/admin/auth/recover" className="login-link-recover">
+                <Link to="/auth/recover" className="login-link-recover">
                     Esqueceu a senha?
                 </Link>
                 <div className="login-submit">

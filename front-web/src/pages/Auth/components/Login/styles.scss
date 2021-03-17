@@ -1,17 +1,22 @@
 .login-form {
-    margin-top: 40px;
-    text-align: start;
+  margin-top: 40px;
+  text-align: start;
 }
 
 .login-link-recover {
-    display: block; //O Link vem por padrão em display inline
-    margin-top: 15px;
-    font-size: 18px;
-    line-height: 25px;
-    letter-spacing: -0.015em;
+  display: block; //O Link vem por padrão em display inline
+  margin-top: 15px;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    color: #ffffff;
+  }
 }
 
 .login-submit {
-    margin-top: 110px;
-    margin-bottom: 15px;
+  margin-top: 110px;
+  margin-bottom: 15px;
 }

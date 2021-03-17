@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import history from './history';
 
 export const CLIENT_ID = 'espacolr';
 export const CLIENT_SECRET = 'espacolr123'
@@ -40,9 +41,12 @@ export const getSessionData = () => {
 export const getAccessTokenDecoded = () => {
     const sessionData = getSessionData();
     //DECODIFICANO O TOKEN
-    const tokenDecoded = jwtDecode(sessionData.access_token);
-
-    return tokenDecoded as AccessToken;
+    try {
+        const tokenDecoded = jwtDecode(sessionData.access_token);
+        return tokenDecoded as AccessToken;
+    } catch (error) {
+        return {} as AccessToken;
+    }
 }
 
 //verificando a expiração do Token
@@ -72,5 +76,10 @@ export const isAllowedByRole = (routeRoles: Role[] = []) => {
 
     /*Pegando a ROLE que o usuário necessita ter para poder acessar a rota e 
     verificando se o usuário logado a tem*/
-    return routeRoles.some(role => authorities.includes(role));
+    return routeRoles.some(role => authorities?.includes(role));
+}
+
+export const logout = () => {
+    localStorage.removeItem('authData');
+    history.replace('/auth/login');
 }

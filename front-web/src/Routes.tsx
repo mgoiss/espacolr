@@ -15,8 +15,8 @@ const Routes = () => (
             <Route path="/scheduling">
                 <Scheduling />
             </Route>
-            <Redirect from="/" to="/admin/auth" exact />
-            <Route path="/admin/auth">
+            <Redirect from="/" to="/auth" exact />
+            <Route path="/auth">
                 <Auth />
             </Route>
             <Redirect from="/admin" to="/admin/schedule" exact />

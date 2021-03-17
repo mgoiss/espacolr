@@ -17,11 +17,11 @@ const Auth = () => (
         </div>
         <div className="auth-content">
             <Switch>
-                <Redirect from="/admin/auth" to="/admin/auth/login" exact />
-                <Route path="/admin/auth/login">
+                <Redirect from="/auth" to="/auth/login" exact />
+                <Route path="/auth/login">
                     <Login />
                 </Route>
-                <Route path="/admin/auth/recover">
+                <Route path="/auth/recover">
                     <h1>RECUPERAÇÃO</h1>
                 </Route>
             </Switch>
