@@ -46,9 +46,9 @@ public class UserService implements UserDetailsService {
 	
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(PageRequest pageRequest) {
-		Page<User> list = repository.findAll(pageRequest);
-		
-		return list.map(x -> new UserDTO(x));
+		Page<User> page = repository.findAll(pageRequest);
+		repository.find(page.toList()); //Evitando as N+1 consulta, pois já será pego todos os ROLES aqui e não será feita varias consultas na linha abaixo
+		return page.map(x -> new UserDTO(x));
 	}
 	
 	@Transactional(readOnly = true)

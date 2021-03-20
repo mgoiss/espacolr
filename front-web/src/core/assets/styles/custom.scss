@@ -1,12 +1,16 @@
-//Customizações do Bootstrap 
+//Customizações do Bootstrap
 
 //Variáveis do bootstrap de customização
 $theme-colors: (
-    "primary": #81C41D
+  "primary": #81c41d,
+  //"secondary": #9e9e9e,
 );
 
-$body-bg: #F2F2F2;
+$body-bg: #f2f2f2;
 $body-color: #263238;
 
+@import "~bootstrap/scss/bootstrap.scss";
 
-@import '~bootstrap/scss/bootstrap.scss';
+.btn {
+  font-weight: 700;
+}

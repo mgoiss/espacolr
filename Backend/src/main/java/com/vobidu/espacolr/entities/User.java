@@ -36,7 +36,7 @@ public class User implements UserDetails, Serializable {
 	private String email;
 	private String password;
 	
-	@ManyToMany(fetch = FetchType.EAGER) //PEGAR OS ROLE SEMPRE QUE BUSCAR OS USUÁRIO
+	@ManyToMany//(fetch = FetchType.EAGER) //PEGAR OS ROLE SEMPRE QUE BUSCAR OS USUÁRIO
 	@JoinTable(name = "tb_user_role",
 	joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name = "role_id"))

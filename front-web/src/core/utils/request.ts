@@ -23,7 +23,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
     if (error.response.status === 401) {
         //Chamando o metodo que apaga o token do localStorage e redireciona para a tela de login
-        logout();
+        //logout();
     }
     return Promise.reject(error);
 });

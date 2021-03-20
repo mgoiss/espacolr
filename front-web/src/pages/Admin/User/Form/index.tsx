@@ -1,4 +1,5 @@
 import BaseForm from 'core/components/BaseForm';
+import { Role } from 'core/utils/auth';
 import { makePrivateRequest } from 'core/utils/request';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,6 +12,7 @@ type FormState = {
     lastName: string;
     email: string;
     password: string;
+    role: Role;
 }
 
 const Form = () => {
@@ -81,7 +83,10 @@ const Form = () => {
                                     type="password"
                                     className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
                                     placeholder="Digite aqui a Senha"
-                                    ref={register({ required: "Campo obrigatório" })}
+                                    ref={register({
+                                        required: "Campo obrigatório",
+                                        minLength: { value: 6, message: 'O campo deve ter no mínimo 6 caracteres' },
+                                    })}
                                 />
                                 {errors.password && (
                                     <div className="invalid-feedback d-block">
