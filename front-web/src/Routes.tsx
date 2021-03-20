@@ -15,10 +15,10 @@ const Routes = () => (
             <Route path="/scheduling">
                 <Scheduling />
             </Route>
-            <Redirect from="/" to="/auth" exact />
             <Route path="/auth">
                 <Auth />
             </Route>
+            <Redirect from="/" to="/admin" exact />
             <Redirect from="/admin" to="/admin/schedule" exact />
             <Route path="/admin">
                 <Admim />

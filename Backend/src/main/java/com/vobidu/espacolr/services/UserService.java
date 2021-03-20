@@ -54,7 +54,8 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrada"));
+		//repository.findById(obj); // N+1 consulta
+		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrada"));		
 		return new UserDTO(entity);
 	}
 	
