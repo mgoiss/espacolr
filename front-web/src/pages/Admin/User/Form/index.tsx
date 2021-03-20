@@ -1,9 +1,9 @@
 import BaseForm from 'core/components/BaseForm';
 import { Role } from 'core/utils/auth';
 import { makePrivateRequest } from 'core/utils/request';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './styles.scss';
 
@@ -15,12 +15,34 @@ type FormState = {
     role: Role;
 }
 
+type ParamsType = {
+    userId: string;
+}
+
 const Form = () => {
-    const { register, handleSubmit, errors } = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
     const history = useHistory();
+    const { userId } = useParams<ParamsType>();
+    const isEditing = userId !== 'create'
+
+    useEffect(() => {
+        if (isEditing) {
+            makePrivateRequest({ url: `/users/${userId}` })
+                .then(response => {
+                    setValue('firstName', response.data.firstName);
+                    setValue('email', response.data.email);
+                    setValue('lastName', response.data.lastName);
+                })
+        }
+    }, [userId, isEditing, setValue]);
+
 
     const onSubmit = (data: FormState) => {
-        makePrivateRequest({ url: '/users', method: 'POST', data })
+        makePrivateRequest({
+            url: isEditing ? `/users/${userId}` : '/users',
+            method: isEditing ? 'PUT' : 'POST',
+            data
+        })
             .then(() => {
                 toast.success('Usuário cadastrado com sucesso!', {
                     style: { background: '#81c41d' },
@@ -33,10 +55,13 @@ const Form = () => {
             })
     }
 
+
     return (
         <div className="container-form">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <BaseForm title="CADASTRO UM USUÁRIO">
+                <BaseForm
+                    title={isEditing ? 'EDITAR USUÁRIO' : "CADASTRAR USUÁRIO"}
+                >
                     <div className="row">
                         <div className="col-6">
                             <div className="mb-4">

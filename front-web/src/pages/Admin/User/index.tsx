@@ -5,18 +5,15 @@ import List from './List';
 import Form from './Form';
 
 const User = () => {
-    return( 
+    return (
         <div>
             <Switch>
                 <Route path="/admin/user" exact>
                     <List />
                 </Route>
-                <Route path="/admin/user/create">
+                <Route path="/admin/user/:userId">
                     <Form />
                 </Route>
-                <Route path="/admin/user/:userId">
-                    <h1>Edição de Usuários</h1>
-                </Route>    
             </Switch>
         </div>
     );

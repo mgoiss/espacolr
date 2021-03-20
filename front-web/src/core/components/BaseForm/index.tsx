@@ -30,7 +30,7 @@ const BaseForm = ({ title, children }: Props) => {
                 <button
                     className="btn btn-primary text-white button-green button-pattern"
                 >
-                    CADASTRAR
+                    SALVAR
                 </button>
             </div>
         </div>
