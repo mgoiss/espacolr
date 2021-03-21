@@ -1,4 +1,3 @@
-import { Roles } from './Roles'
 
 export type UserResponse = {
     content: User[];
@@ -10,5 +9,10 @@ export type User = {
     firstName: string;
     lastName: string;
     email: string;
-    roles: Roles[];
+    roles: Role[];
+}
+
+export type Role = {
+    id: number;
+    authority: string;
 }

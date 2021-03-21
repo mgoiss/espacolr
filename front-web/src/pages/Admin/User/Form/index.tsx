@@ -1,28 +1,35 @@
 import BaseForm from 'core/components/BaseForm';
-import { Role } from 'core/utils/auth';
 import { makePrivateRequest } from 'core/utils/request';
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './styles.scss';
+import { Role } from 'core/types/User';
 
 type FormState = {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-    role: Role;
+    roles: Role[];
 }
 
 type ParamsType = {
     userId: string;
 }
 
+const options = [
+    { id: '1', authority: 'ROLE_OPERATOR' },
+    { id: '2', authority: 'ROLE_ADMIN' }
+]
+
 const Form = () => {
-    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
     const history = useHistory();
     const { userId } = useParams<ParamsType>();
+    const [role, setRole] = useState<Role[]>([]);
     const isEditing = userId !== 'create'
 
     useEffect(() => {
@@ -32,10 +39,10 @@ const Form = () => {
                     setValue('firstName', response.data.firstName);
                     setValue('email', response.data.email);
                     setValue('lastName', response.data.lastName);
+                    setValue('roles', response.data.roles);
                 })
         }
     }, [userId, isEditing, setValue]);
-
 
     const onSubmit = (data: FormState) => {
         makePrivateRequest({
@@ -138,6 +145,25 @@ const Form = () => {
                                 {errors.lastName && (
                                     <div className="invalid-feedback d-block">
                                         {errors.lastName.message}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <Controller
+                                    name="roles"
+                                    rules={{ required: true }}
+                                    control={control}
+                                    as={Select}
+                                    classNamePrefix="roles-select"
+                                    options={options}
+                                    getOptionLabel={(option: Role) => option.authority}
+                                    getOptionValue={(option: Role) => option.id}
+                                    isMulti
+                                    placeholder="Tipo Usuário"
+                                />
+                                {errors.roles && (
+                                    <div className="invalid-feedback d-block">
+                                        Campo obrigatório
                                     </div>
                                 )}
                             </div>
