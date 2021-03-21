@@ -4,8 +4,9 @@ import Pagination from 'core/components/Pagination';
 import { UserResponse } from 'core/types/User';
 import { getSessionData } from 'core/utils/auth';
 import { makePrivateRequest } from 'core/utils/request';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './styles.scss';
 
 const List = () => {
@@ -18,8 +19,7 @@ const List = () => {
     const [activePage, setActivePage] = useState(0);
     const history = useHistory();
 
-    useEffect(() => {
-
+    const getUsers = useCallback(() => {
         //Passando parametros
         const params = {
             page: activePage,
@@ -40,8 +40,11 @@ const List = () => {
                 //Finalizando o Loading
                 setIsLoading(false);
             });
-    }, [activePage]);
+    }, [activePage])
 
+    useEffect(() => {
+        getUsers();
+    }, [getUsers]);
 
     const handleCreate = () => {
         history.push('/admin/user/create');
@@ -49,6 +52,27 @@ const List = () => {
 
     const handleMyData = () => {
         history.push(`/admin/user/${currentUser}`);
+    }
+
+    const onRemove = (userId: number) => {
+        const confirm = window.confirm('Deseja realmente excluir esse usuário?');
+        if (confirm) {
+            //Essa função vai ser chamada pela botão do componente cardList
+            //ou seja o elemento filho tá chamando uma função do elemento Pai
+            makePrivateRequest({ url: `/users/${userId}`, method: 'DELETE' })
+                .then(() => {
+                    toast.success('Usuário removido com sucesso!', {
+                        style: { background: '#81c41d' },
+                        position: "bottom-right"
+                    });
+                    getUsers();
+                })
+                .catch(() => {
+                    toast.error('Erro ao remover o usuário!', {
+                        position: "bottom-right"
+                    });
+                })
+        }
     }
 
     return (
@@ -63,8 +87,13 @@ const List = () => {
             </div>
             <div className="user-list-container">
                 {isLoading ? /*se true*/ <CardListLoader /> : /*se false*/ (
-                    userResponse?.content.map(User => (
-                        <CardList user={User} key={User.id} path="/admin/user/" />
+                    userResponse?.content.map(user => (
+                        <CardList
+                            user={user}
+                            key={user.id}
+                            path="/admin/user/"
+                            onRemove={onRemove}
+                        />
                     ))
                 )}
             </div>

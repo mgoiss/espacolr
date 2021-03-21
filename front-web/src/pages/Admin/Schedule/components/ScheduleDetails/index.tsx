@@ -19,9 +19,6 @@ const ScheduleDetails = () => {
     const [schedule, setSchedule] = useState<Schedule>();
     const [isLoader, setIsLoader] = useState(false);
 
-    console.log(isLoader);
-    console.log(schedule?.status);
-
     useEffect(() => {
 
         setIsLoader(true);
