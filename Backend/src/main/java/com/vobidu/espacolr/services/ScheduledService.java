@@ -95,7 +95,7 @@ public class ScheduledService {
 		entity.setClient(client);
 	}
 
-	public FreeDateDTO findFreeDate(int year, int month) {
+	public List<FreeDateDTO> findFreeDate(int year, int month) {
 		
 		if(year < LocalDate.now().getYear()) {
 			throw new DateException("O ano informado é anterior ao ano atual");
@@ -104,7 +104,7 @@ public class ScheduledService {
 			throw new DateException("O mês informado é anterior ao mês atual");
 		}		
 		
-		FreeDateDTO freeDate = new FreeDateDTO();
+		List<FreeDateDTO> freeDate = new ArrayList<>();
 		LocalDate date = LocalDate.of(year, month, 1);
 		int count = date.lengthOfMonth();
 		
@@ -115,9 +115,9 @@ public class ScheduledService {
 			if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
 				Scheduled currentDate = repository.findByDate(date);
 				
-				if (currentDate == null) {	
-					
-					freeDate.addDate(date);		//Adicionando a data disponivel						
+				if (currentDate == null) {
+					FreeDateDTO dateFree = new FreeDateDTO(date);
+					freeDate.add(dateFree);		//Adicionando a data disponivel						
 				}	
 			}							
 		}

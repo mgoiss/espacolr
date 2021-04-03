@@ -1,0 +1,47 @@
+.select-base {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px !important;
+  border: 1px solid #e1e1e1 !important;
+}
+
+.button-container-schedule {
+  margin-top: 80px;
+  text-align: end;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    height: 60px;
+    width: 215px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.015em;
+  }
+}
+
+.btn-conclui {
+  color: #81c41d;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #81c41d;
+  }
+}
+
+.scheduling-select__control {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px !important;
+  border: 1px solid #e1e1e1 !important;
+}
+
+.scheduling-erro-select__control {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px !important;
+  border: 1px solid #dc3545 !important;
+}

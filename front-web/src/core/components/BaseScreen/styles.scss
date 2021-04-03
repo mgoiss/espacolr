@@ -1,4 +1,4 @@
-.auth-container {
+.base-screen-container {
   display: flex;
   padding: 40px 40px 100px 0;
   justify-content: center;
@@ -7,12 +7,12 @@
   background-size: 100%;
 }
 
-.auth-info {
+.base-screen-info {
   margin-top: 40px;
   margin-right: 85px;
 }
 
-.auth-info-title {
+.base-screen-info-title {
   margin-left: 60px;
   font-size: 80px;
   line-height: 109px;
@@ -20,7 +20,7 @@
   color: #263238;
 }
 
-.auth-info-subtitle {
+.base-screen-info-subtitle {
   margin-left: 60px;
   margin-top: 20px;
   margin-bottom: 50px;

@@ -9,21 +9,27 @@ import java.util.Set;
 public class FreeDateDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private List<LocalDate> freeDate = new ArrayList<>();
+	private LocalDate freeDate;
+	private int freeDay;
 
 	public FreeDateDTO() {
 
 	}
 	
-	public FreeDateDTO(Set<LocalDate> freeDate) {
-		freeDate.forEach(free -> this.freeDate.add(free));
+	public FreeDateDTO(LocalDate freeDate) {
+		this.freeDate = freeDate;
+		this.freeDay = freeDate.getDayOfMonth();
 	}
 
-	public List<LocalDate> getFreeTime() {
+	public LocalDate getFreeTime() {
 		return freeDate;
 	}
 	
-	public void addDate(LocalDate date) {
-		freeDate.add(date);
+	public int getFreeDay() {
+		return freeDay;
 	}
+	
+	/*public void addDate(LocalDate date) {
+		freeDate.add(date);
+	}*/
 }

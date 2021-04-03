@@ -29,7 +29,6 @@ const Form = () => {
   const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
   const history = useHistory();
   const { userId } = useParams<ParamsType>();
-  const [role, setRole] = useState<Role[]>([]);
   const isEditing = userId !== 'create'
 
   useEffect(() => {
