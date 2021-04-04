@@ -9,6 +9,7 @@ export type Schedule = {
     id: number;
     date: string;
     price: number;
+    valuePaid: number;
     status: string;
     client: Client;
 }

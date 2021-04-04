@@ -19,6 +19,8 @@ public class ScheduledDTO {
 	
 	@Positive(message = "O preço deve ser um valor positivo")
 	private Double price;
+	@Positive(message = "O valor pago deve ser um valor positivo")
+	private Double valuePaid;
 	private String status;
 	
 	private ClientDTO client;
@@ -27,10 +29,11 @@ public class ScheduledDTO {
 		
 	}
 
-	public ScheduledDTO(Long id, LocalDate date, Double price, String status) {
+	public ScheduledDTO(Long id, LocalDate date, Double price, Double valuePaid, String status) {
 		this.id = id;
 		this.date = date;
 		this.price = price;
+		this.valuePaid = valuePaid;
 		this.status = status;
 	}
 	
@@ -38,6 +41,7 @@ public class ScheduledDTO {
 		id = scheduled.getId();
 		date = scheduled.getDate();
 		price = scheduled.getPrice();
+		valuePaid = scheduled.getValuePaid();
 		status = scheduled.getStatus();
 	}
 	
@@ -68,6 +72,14 @@ public class ScheduledDTO {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Double getValuePaid() {
+		return valuePaid;
+	}
+
+	public void setValuePaid(Double valuePaid) {
+		this.valuePaid = valuePaid;
 	}
 
 	public String getStatus() {

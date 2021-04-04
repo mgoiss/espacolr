@@ -24,6 +24,7 @@ public class Scheduled implements Serializable {
 	@Column(unique = true)
 	private LocalDate date;
 	private Double price;
+	private Double valuePaid;
 	private String status;
 	
 	@ManyToOne
@@ -33,11 +34,12 @@ public class Scheduled implements Serializable {
 		
 	}
 
-	public Scheduled(Long id, LocalDate date, Double price, String status, Client client) {
+	public Scheduled(Long id, LocalDate date, Double price, Double valuePaid, String status, Client client) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.price = price;
+		this.valuePaid = valuePaid;
 		this.status = status;
 		this.client = client;
 	}
@@ -64,6 +66,14 @@ public class Scheduled implements Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}	
+
+	public Double getValuePaid() {
+		return valuePaid;
+	}
+
+	public void setValuePaid(Double valuePaid) {
+		this.valuePaid = valuePaid;
 	}
 
 	public String getStatus() {

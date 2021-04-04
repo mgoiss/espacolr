@@ -2,8 +2,7 @@ import CardListLoader from 'pages/Admin/Components/Loaders/CardListLoader';
 import { ClientResponse } from 'core/types/Client';
 import { makeRequest } from 'core/utils/request';
 import CardClientList from 'pages/Admin/Components/CardClientList';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
 import './styles.scss';
 import Pagination from 'core/components/Pagination';
 
@@ -11,7 +10,6 @@ const ListClient = () => {
   const [clientResponse, setClientResponse] = useState<ClientResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [activePage, setActivePage] = useState(0);
-  const history = useHistory();
 
   useEffect(() => {
     const params = {

@@ -2,9 +2,6 @@ package com.vobidu.espacolr.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class FreeDateDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

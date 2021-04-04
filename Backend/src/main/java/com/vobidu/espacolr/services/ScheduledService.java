@@ -88,18 +88,20 @@ public class ScheduledService {
 	private void copyDtoToEntity(ScheduledDTO dto, Scheduled entity) {
 		entity.setDate(dto.getDate());
 		entity.setPrice(dto.getPrice());
+		entity.setValuePaid(dto.getValuePaid());
 		entity.setStatus(dto.getStatus());
 		
 		//Pegando o Client no Banco
 		Client client = clientRepository.getOne(dto.getClient().getId());
 		entity.setClient(client);
 	}
-
+	//Listando os dias disponiveis do mês
 	public List<FreeDateDTO> findFreeDate(int year, int month) {
 		
+		//Verificando se o ano informado é o atual
 		if(year < LocalDate.now().getYear()) {
 			throw new DateException("O ano informado é anterior ao ano atual");
-		}
+		} //Verificando se o mE^s informado é menor que o atual
 		else if (month < LocalDate.now().getMonthValue() && year == LocalDate.now().getYear()) {
 			throw new DateException("O mês informado é anterior ao mês atual");
 		}		
@@ -112,7 +114,7 @@ public class ScheduledService {
 			
 			date = date.withDayOfMonth(i); //Passando para o proximo dia
 			
-			if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+			if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) { //Verificando se o dia está disponivel
 				Scheduled currentDate = repository.findByDate(date);
 				
 				if (currentDate == null) {
@@ -124,7 +126,7 @@ public class ScheduledService {
 		
 		return freeDate;
 	}
-
+	//Listando os agendamentos por mês
 	public List<ScheduledDTO> findMonth(int month) {
 		LocalDate date = LocalDate.of(LocalDate.now().getYear(), month, 1);
 		List<ScheduledDTO> list = new ArrayList<ScheduledDTO>();

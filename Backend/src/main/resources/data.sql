@@ -12,6 +12,6 @@ INSERT INTO tb_client (name, phone) VALUES ('Matheus Felipe Jesus Rocha Gois', '
 INSERT INTO tb_client (name, phone) VALUES ('Valdice Querem', '(75) 99999-5967');
 INSERT INTO tb_client (name, phone) VALUES ('Bidu', '(75) 96855-5697');
 
-INSERT INTO tb_scheduled (date, price, status, client_id) VALUES ('2021-01-05', 500.00, 'Concluido', 1);
-INSERT INTO tb_scheduled (date, price, status, client_id) VALUES ('2021-01-14', 500.00, 'Aguardando', 2);
-INSERT INTO tb_scheduled (date, price, status, client_id) VALUES ('2021-01-20', 500.00, 'Aguardando', 3);
+INSERT INTO tb_scheduled (date, price, value_paid, status, client_id) VALUES ('2021-01-05', 500.00, 500.00, 'Concluido', 1);
+INSERT INTO tb_scheduled (date, price, value_paid, status, client_id) VALUES ('2021-01-14', 500.00, 250.00, 'Aguardando', 2);
+INSERT INTO tb_scheduled (date, price, value_paid, status, client_id) VALUES ('2021-01-20', 500.00, 250.00, 'Aguardando', 3);
