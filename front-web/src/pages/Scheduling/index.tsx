@@ -5,26 +5,12 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import dayjs from 'dayjs';
 import { makePrivateRequest } from 'core/utils/request';
-
-// const options = [
-//   { value: 1, label: 'Janeiro' },
-//   { value: 2, label: 'Fevereiro' },
-//   { value: 3, label: 'Março' },
-//   { value: 4, label: 'Abril' },
-//   { value: 5, label: 'Maio' },
-//   { value: 6, label: 'Junho' },
-//   { value: 7, label: 'Julho' },
-//   { value: 8, label: 'Agosto' },
-//   { value: 9, label: 'Setembro' },
-//   { value: 10, label: 'Outubro' },
-//   { value: 11, label: 'Novembro' },
-//   { value: 12, label: 'Dezembro' }
-// ]
+import ModalSearch from './Components';
+import { Client } from 'core/types/Client';
 
 type FormState = {
-  firstName: string;
-  lastName: string;
-  phone: string;
+  id: number;
+  name: string;
   mount: number;
   day: number;
 }
@@ -41,6 +27,8 @@ const Scheduling = () => {
   const [daySelect, setDaySelect] = useState('');
   const [listDaySelect, setListDaySelect] = useState<FormDay[]>([]);
   const history = useHistory();
+
+  const [showModal, setShowModal] = useState(false);
 
   const handleCancel = () => {
     history.push('./');
@@ -72,6 +60,7 @@ const Scheduling = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <AuthCard>
+        {/* Selecte MES e Dia */}
         <div className="d-flex justify-content-between mt-5">
           <div>
             <select
@@ -123,57 +112,56 @@ const Scheduling = () => {
             )}
           </div>
         </div>
-        <input
-          name="firstName"
-          type="text"
-          className={`form-control input-base mt-4 ${errors.firstName ? 'is-invalid' : ''}`}
-          placeholder="Nome"
-          ref={register({
-            required: "Campo obrigatório",
-            minLength: { value: 3, message: 'O campo deve ter no mínimo 3 caracteres' },
-            maxLength: { value: 25, message: 'O campo deve ter no maximo 25 caracteres' }
-          })}
-        />
-        {errors.firstName && (
-          <div className="invalid-feedback d-block text-left">
-            {errors.firstName.message}
+        <div className="contente-client card-base border-radius-20">
+          <h2>Cliente</h2>
+          <div className="d-flex justify-content-between">
+            <input
+              name="id"
+              type="text"
+              disabled
+              className={`form-control input-base input-id mt-4 ${errors.id ? 'is-invalid' : ''}`}
+              placeholder="Id"
+              ref={register({
+                required: "Um cliente de ser informado, por favor pesquise",
+              })}
+            />
+            <input
+              name="name"
+              type="text"
+              disabled
+              className={`form-control input-base input-name mt-4 ${errors.name ? 'is-invalid' : ''}`}
+              placeholder="Nome"
+              ref={register({
+                required: "Um cliente de ser informado, por favor pesquise",
+              })}
+            />
           </div>
-        )}
-        <input
-          name="lastName"
-          type="text"
-          className={`form-control input-base mt-4 ${errors.lastName ? 'is-invalid' : ''}`}
-          placeholder="Sobrenome"
-          ref={register({
-            required: "Campo obrigatório",
-            minLength: { value: 3, message: 'O campo deve ter no mínimo 3 caracteres' },
-            maxLength: { value: 25, message: 'O campo deve ter no maximo 25 caracteres' }
-          })}
-        />
-        {errors.lastName && (
-          <div className="invalid-feedback d-block text-left">
-            {errors.lastName.message}
+          {errors.id ? (
+            <div className="invalid-feedback d-block text-left">
+              {errors.id.message}
+            </div>
+          ) : errors.name && (
+            <div className="invalid-feedback d-block text-left">
+              {errors.name.message}
+            </div>
+          )}
+          <div className="text-right">
+            <ModalSearch showModal={showModal} />
           </div>
-        )}
-        <input
-          name="phone"
-          type="text"
-          className={`form-control input-base mt-4 ${errors.phone ? 'is-invalid' : ''}`}
-          placeholder="Telefone"
-          ref={register({
-            required: "Campo obrigatório",
-            minLength: { value: 11, message: 'O campo deve ter no mínimo 11 caracteres' },
-            maxLength: { value: 12, message: 'O campo deve ter no maximo 12 caracteres' }
-          })}
-        />
-        {errors.phone && (
-          <div className="invalid-feedback d-block text-left">
-            {errors.phone.message}
+
+          <div className="modal fade bd-example-modal-sm" tabIndex={-1} role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-sm">
+              <div className="modal-content">
+                ...
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* BOTÃO AGENDAR E CANCELAR */}
         <div className="button-container-schedule">
-          <button type="button" className="btn btn-outline-danger" onClick={handleCancel}>CANCELAR</button>
-          <button className="btn btn-light btn-conclui">AGENDAR</button>
+          <button type="button" className="btn btn-outline-danger button-base" onClick={handleCancel}>CANCELAR</button>
+          <button className="btn btn-light btn-conclui button-base">AGENDAR</button>
         </div>
       </AuthCard>
     </form >

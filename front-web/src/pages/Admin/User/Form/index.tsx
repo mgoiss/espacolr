@@ -1,6 +1,6 @@
 import BaseForm from 'core/components/BaseForm';
 import { makePrivateRequest } from 'core/utils/request';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';

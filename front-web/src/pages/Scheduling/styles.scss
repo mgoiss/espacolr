@@ -10,17 +10,6 @@
   text-align: end;
   display: flex;
   justify-content: space-between;
-
-  button {
-    height: 60px;
-    width: 215px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 22px;
-    text-align: center;
-    letter-spacing: -0.015em;
-  }
 }
 
 .btn-conclui {
@@ -32,16 +21,17 @@
   }
 }
 
-.scheduling-select__control {
-  width: 200px;
-  height: 50px;
-  border-radius: 10px !important;
-  border: 1px solid #e1e1e1 !important;
+.contente-client {
+  text-align: start;
+  color: #81c41d;
+  margin-top: 20px;
+  padding: 15px;
 }
 
-.scheduling-erro-select__control {
-  width: 200px;
-  height: 50px;
-  border-radius: 10px !important;
-  border: 1px solid #dc3545 !important;
+.input-id {
+  max-width: 100px;
+}
+
+.input-name {
+  max-width: 310px;
 }

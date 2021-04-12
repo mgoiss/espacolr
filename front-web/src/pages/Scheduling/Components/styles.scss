@@ -1,0 +1,75 @@
+.Modal {
+  margin: 40px auto;
+  top: 40px;
+  width: 850px;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+
+  header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #81c41d;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 33px;
+      letter-spacing: -0.015em;
+      color: #ffffff;
+    }
+
+    .btn-header-close {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 32px;
+      height: 32px;
+      right: calc(-100% + 64px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:before,
+      &:after {
+        content: " ";
+        position: absolute;
+        width: 2.5px;
+        height: 24px;
+        background-color: #ffffff;
+      }
+      &:before {
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  section {
+    padding: 20px 30px;
+  }
+
+  .footer-modal {
+    padding: 0 30px 30px 30px;
+  }
+
+  .input-phone {
+    max-width: 310px;
+  }
+
+  .client-item {
+    cursor: pointer;
+  }
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.342);
+}
