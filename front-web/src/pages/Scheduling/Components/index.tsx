@@ -1,27 +1,41 @@
 import Pagination from 'core/components/Pagination';
-import { ClientResponse } from 'core/types/Client';
-import { makeRequest } from 'core/utils/request';
+import { Client, ClientResponse } from 'core/types/Client';
+import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import CardClientList from 'pages/Admin/Components/CardClientList';
 import CardListLoader from 'pages/Admin/Components/Loaders/CardListLoader';
 import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import './styles.scss';
 
 type Props = {
-  showModal: boolean
+  clientStateCallback: (item: Client) => void;
+}
+
+type FormClient = {
+  name: string;
+  phone: string;
 }
 
 Modal.setAppElement('#root')
 
-const ModalSearch = ({ showModal = false }: Props) => {
+const ModalSearch = ({ clientStateCallback }: Props) => {
 
-  const [show, setShow] = useState(showModal);
+  const { register, handleSubmit, errors } = useForm<FormClient>();
+
+  const [show, setShow] = useState(false);
 
   const [clientResponse, setClientResponse] = useState<ClientResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [activePage, setActivePage] = useState(0);
 
+  //Metodo para retornar o valor selecionado na lista de clientes
+  const handleState = (client: Client) => {
+    clientStateCallback(client);
+    closeModal();
+  }
+  //metodo de listagem dos clientes
   useEffect(() => {
     const params = {
       page: activePage,
@@ -36,7 +50,17 @@ const ModalSearch = ({ showModal = false }: Props) => {
       .finally(() => {
         setIsLoading(false);
       })
-  }, [activePage]);
+  }, [activePage, show]);
+  //Cadastrar Cliente
+  const onsubmitModal = (data: FormClient) => {
+    console.log(data);
+    makePrivateRequest({
+      url: '/clients',
+      method: 'POST',
+      data
+    })
+      .then(respose => { handleState(respose.data) })
+  }
 
   // Funções para exibir e fechar o modal
   const openModal = () => {
@@ -66,13 +90,52 @@ const ModalSearch = ({ showModal = false }: Props) => {
           </div>
           <div className="mt-5">
             {isRegister ? (
-              <div className="d-flex">
-                <input name="name" type="text" className={`form-control input-base mr-4`} placeholder="Nome" />
-                <input name="phone" type="text" className={`form-control input-base input-phone`} placeholder="Telefone" />
-              </div>
+              <form onSubmit={handleSubmit(onsubmitModal)}>
+                <div className="d-flex">
+                  <div className="mr-4 w-75">
+                    <input
+                      name="name"
+                      type="text"
+                      className={`form-control input-base ${errors.name ? 'is-invalid' : ''}`}
+                      placeholder="Nome"
+                      ref={register({
+                        required: "Campo Obrigatório",
+                        minLength: { value: 3, message: 'O campo deve ter no mínimo 3 caracteres' },
+                        maxLength: { value: 50, message: 'O campo deve ter no maximo 30 caracteres' }
+                      })}
+                    />
+                    {errors.name && (
+                      <div className="invalid-feedback d-block">
+                        {errors.name.message}
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-50">
+                    <input
+                      name="phone"
+                      type="text"
+                      className={`form-control input-base input-phone ${errors.phone ? 'is-invalid' : ''}`}
+                      placeholder="Telefone"
+                      ref={register({
+                        required: 'Campo Obrigatório',
+                        minLength: { value: 11, message: 'O campo deve ter no mínimo 11 caracteres' },
+                        maxLength: { value: 11, message: 'O campo deve ter no maximo 11 caracteres' }
+                      })}
+                    />
+                    {errors.phone && (
+                      <div className="invalid-feedback d-block">
+                        {errors.phone.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="d-flex flex-row-reverse">
+                  <button className="btn btn-primary text-white button-base mt-4">SALVAR</button>
+                </div>
+              </form>
             ) : isLoading ? <CardListLoader /> : (
               clientResponse?.content.map(client => (
-                <div className="client-item" key={client.id}>
+                <div className="client-item" key={client.id} onClick={() => handleState(client)}>
                   <CardClientList client={client} />
                 </div>
               ))
@@ -80,15 +143,15 @@ const ModalSearch = ({ showModal = false }: Props) => {
           </div>
         </section>
         <footer className={`footer-modal ${isRegister ? 'd-flex flex-row-reverse' : ''}`}>
-          {isRegister ? (
-            <button type="button" className="btn btn-primary text-white button-base mt-4">SALVAR</button>
-          ) : clientResponse && (
-            clientResponse.totalPages > 1 && (
-              <Pagination
-                totalPages={clientResponse.totalPages}
-                activePage={activePage}
-                onChange={page => setActivePage(page)}
-              />
+          {isRegister == false && (
+            clientResponse && (
+              clientResponse.totalPages > 1 && (
+                <Pagination
+                  totalPages={clientResponse.totalPages}
+                  activePage={activePage}
+                  onChange={page => setActivePage(page)}
+                />
+              )
             )
           )}
         </footer>

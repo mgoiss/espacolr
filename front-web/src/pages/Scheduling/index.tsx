@@ -7,12 +7,18 @@ import dayjs from 'dayjs';
 import { makePrivateRequest } from 'core/utils/request';
 import ModalSearch from './Components';
 import { Client } from 'core/types/Client';
+import { toast } from 'react-toastify';
 
 type FormState = {
-  id: number;
-  name: string;
   mount: number;
-  day: number;
+  date: number;
+  price: number;
+  valuePaid: number;
+  status: "Aguardando",
+  client: {
+    id: number,
+    name: string;
+  }
 }
 
 type FormDay = {
@@ -22,13 +28,19 @@ type FormDay = {
 
 const Scheduling = () => {
 
-  const { register, handleSubmit, errors, setError, clearErrors, getValues } = useForm<FormState>();
+  const { register, handleSubmit, errors, setError, clearErrors, setValue } = useForm<FormState>();
   const [mountSelect, setMountSelect] = useState(dayjs().month() + 1);
   const [daySelect, setDaySelect] = useState('');
   const [listDaySelect, setListDaySelect] = useState<FormDay[]>([]);
   const history = useHistory();
 
-  const [showModal, setShowModal] = useState(false);
+  const [client, setClient] = useState<Client>();
+
+  //Metodo para pegar os dados do Cliente e passar para o Formulario
+  useEffect(() => {
+    setValue('client.id', client?.id);
+    setValue('client.name', client?.name);
+  }, [client, setValue])
 
   const handleCancel = () => {
     history.push('./');
@@ -36,9 +48,23 @@ const Scheduling = () => {
 
   //Metodo de Cadastro
   const onSubmit = (data: FormState) => {
-    console.log(data)
-    console.log(getValues("mount"))
-    console.log(dayjs().month())
+    makePrivateRequest({ url: '/scheduleds', method: 'POST', data })
+      .then(() => {
+        toast.success('Agendamento realizado com sucesso!', {
+          style: { background: '#81c41d' },
+          position: 'bottom-right'
+        })
+      })
+      .catch(() => {
+        toast.error('Erros ao agendar!')
+      })
+      .finally(() => {
+        setMountSelect(dayjs().month() + 1);
+        setValue('client.id', '');
+        setValue('client.name', '');
+        setValue('price', '');
+        setValue('valuePaid', '');
+      })
   }
 
   //Use Effect do campo mount
@@ -60,8 +86,11 @@ const Scheduling = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <AuthCard>
+
+        {/*Status*/}
+        <input name="status" type="text" defaultValue="Aguardando" ref={register} className="d-none" />
         {/* Selecte MES e Dia */}
-        <div className="d-flex justify-content-between mt-5">
+        <div className="d-flex justify-content-between mt-3">
           <div>
             <select
               className={`custom-select input-base select-base mt-4 ${errors.mount ? 'is-invalid' : ''}`}
@@ -93,8 +122,8 @@ const Scheduling = () => {
           </div>
           <div>
             <select
-              className={`form-control input-base select-base mt-4 ${errors.day ? 'is-invalid' : ''}`}
-              name="day"
+              className={`form-control input-base select-base mt-4 ${errors.date ? 'is-invalid' : ''}`}
+              name="date"
               value={daySelect}
               onChange={e => setDaySelect(e.target.value)}
               ref={register({
@@ -105,56 +134,86 @@ const Scheduling = () => {
                 <option key={day.freeDay} value={day.freeTime}>{day.freeDay}</option>
               ))}
             </select>
-            {errors.day && (
+            {errors.date && (
               <div className="invalid-feedback d-block text-left">
-                {errors.day.message}
+                {errors.date.message}
               </div>
             )}
           </div>
         </div>
+
         <div className="contente-client card-base border-radius-20">
           <h2>Cliente</h2>
           <div className="d-flex justify-content-between">
             <input
-              name="id"
+              name="client.id"
               type="text"
-              disabled
-              className={`form-control input-base input-id mt-4 ${errors.id ? 'is-invalid' : ''}`}
+              //value={client?.id}
+              readOnly
+              className={`form-control input-base input-id mt-4 ${errors.client?.id || errors.client?.name ? 'is-invalid' : ''}`}
               placeholder="Id"
               ref={register({
                 required: "Um cliente de ser informado, por favor pesquise",
               })}
             />
             <input
-              name="name"
+              name="client.name"
               type="text"
-              disabled
-              className={`form-control input-base input-name mt-4 ${errors.name ? 'is-invalid' : ''}`}
+              //value={client?.name}
+              readOnly
+              className={`form-control input-base input-name mt-4 ${errors.client?.id || errors.client?.name ? 'is-invalid' : ''}`}
               placeholder="Nome"
               ref={register({
                 required: "Um cliente de ser informado, por favor pesquise",
               })}
             />
           </div>
-          {errors.id ? (
+          {errors.client?.id ? (
             <div className="invalid-feedback d-block text-left">
-              {errors.id.message}
+              {errors.client?.id?.message}
             </div>
-          ) : errors.name && (
+          ) : errors.client?.name && (
             <div className="invalid-feedback d-block text-left">
-              {errors.name.message}
+              {errors.client?.name?.message}
             </div>
           )}
           <div className="text-right">
-            <ModalSearch showModal={showModal} />
+            <ModalSearch clientStateCallback={setClient} />
           </div>
+        </div>
 
-          <div className="modal fade bd-example-modal-sm" tabIndex={-1} role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-sm">
-              <div className="modal-content">
-                ...
+        <div className="d-flex justify-content-between mt-4">
+          <div className="mr-4 w-50">
+            <input
+              name="price"
+              type="text"
+              className={`form-control input-base ${errors.price ? 'is-invalid' : ''}`}
+              placeholder="Valor Total"
+              ref={register({
+                required: "Campo Obrigatório",
+              })}
+            />
+            {errors.price && (
+              <div className="invalid-feedback d-block  text-left">
+                {errors.price.message}
               </div>
-            </div>
+            )}
+          </div>
+          <div className="w-50">
+            <input
+              name="valuePaid"
+              type="text"
+              className={`form-control input-base input-phone ${errors.valuePaid ? 'is-invalid' : ''}`}
+              placeholder="Valor Pago"
+              ref={register({
+                required: 'Campo Obrigatório',
+              })}
+            />
+            {errors.valuePaid && (
+              <div className="invalid-feedback d-block text-left">
+                {errors.valuePaid.message}
+              </div>
+            )}
           </div>
         </div>
 
@@ -163,7 +222,7 @@ const Scheduling = () => {
           <button type="button" className="btn btn-outline-danger button-base" onClick={handleCancel}>CANCELAR</button>
           <button className="btn btn-light btn-conclui button-base">AGENDAR</button>
         </div>
-      </AuthCard>
+      </AuthCard >
     </form >
   );
 }
