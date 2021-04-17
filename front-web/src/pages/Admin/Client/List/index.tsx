@@ -30,11 +30,11 @@ const ListClient = () => {
 
   return (
     <div className="client-list">
-      <div className="d-flex">
+      {/* <div className="d-flex d-none">
         <button className="btn btn-primary text-white btn-lg button-pattern" type="button" >
           ADICIONAR
         </button>
-      </div>
+      </div> */}
       <div className="client-list-container">
         {isLoading ? <CardListLoader /> : (
           clientResponse?.content.map(client => (

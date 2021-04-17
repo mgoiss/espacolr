@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import dayjs from 'dayjs';
 import { makePrivateRequest } from 'core/utils/request';
-import ModalSearch from './Components';
+import ModalSearch from './ModalSelectClient';
 import { Client } from 'core/types/Client';
 import { toast } from 'react-toastify';
 
@@ -46,6 +46,12 @@ const Scheduling = () => {
     history.push('./');
   }
 
+  //Metodo para listar e carregar o dias disponiveias para agendamento
+  const DayList = () => {
+    makePrivateRequest({ url: `/scheduleds/date/${dayjs().year()}&${mountSelect}` })
+      .then(response => setListDaySelect(response.data))
+  }
+
   //Metodo de Cadastro
   const onSubmit = (data: FormState) => {
     makePrivateRequest({ url: '/scheduleds', method: 'POST', data })
@@ -56,10 +62,10 @@ const Scheduling = () => {
         })
       })
       .catch(() => {
-        toast.error('Erros ao agendar!')
+        toast.error('Erro ao agendar!')
       })
       .finally(() => {
-        setMountSelect(dayjs().month() + 1);
+        DayList();
         setValue('client.id', '');
         setValue('client.name', '');
         setValue('price', '');
@@ -78,8 +84,7 @@ const Scheduling = () => {
       setListDaySelect([]); //Limpando a lista de datas
     } else {
       clearErrors('mount') //Apagando os erros do campo mês
-      makePrivateRequest({ url: `/scheduleds/date/${dayjs().year()}&${mountSelect}` })
-        .then(response => setListDaySelect(response.data))
+      DayList();
     }
   }, [mountSelect, clearErrors, setError])
 

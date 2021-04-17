@@ -14,7 +14,8 @@ public class ScheduledDTO {
 	
 	private Long id;
 	
-	@FutureOrPresent(message = "A data de agendamento deve ser o dia atual ou futuro")
+	//Removi essa função pq a parte de CONCLUIR agendamento pode ocorrer depois do dia atual
+	//@FutureOrPresent(message = "A data de agendamento deve ser o dia atual ou futuro")
 	private LocalDate date;
 	
 	@Positive(message = "O preço deve ser um valor positivo")

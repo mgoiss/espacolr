@@ -1,13 +1,14 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { ReactComponent as ArrowIcon } from 'core/assets/images/arrow.svg';
 import Price from 'core/components/Price';
 import { Schedule } from 'core/types/Schedule';
-import { makeRequest } from 'core/utils/request';
+import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import ScheduleDetailsinfo from '../Loaders/ScheduleDetailsinfo';
 import ScheduleDetailsPrice from '../Loaders/ScheduleDetailsPrice';
 import './styles.scss';
+import { toast } from 'react-toastify';
 
 type ParamsType = {
   scheduleId: string;
@@ -18,9 +19,39 @@ const ScheduleDetails = () => {
   const { scheduleId } = useParams<ParamsType>();
   const [schedule, setSchedule] = useState<Schedule>();
   const [isLoader, setIsLoader] = useState(false);
+  const history = useHistory();
+  //status: "Cancelar"
+
+  const concludeCancel = (status: string, message: string) => {
+    makePrivateRequest({ url: `/scheduleds/${scheduleId}`, method: 'PUT', data: { ...schedule, status: `${status}`, valuePaid: `${status == "Concluido" ? schedule?.price : schedule?.valuePaid}` } })
+      .then(() => {
+        toast.success(`Agendamento ${status} com sucesso!`, {
+          style: { background: '#81c41d' },
+          position: 'bottom-right'
+        })
+        history.push('/admin/schedule');
+      })
+      .catch(() => {
+        toast.error(`Erro ao ${message} o agendamento`)
+      })
+  }
+
+  const handleCancel = () => {
+    const confirm = window.confirm('Deseja realmente cancelar esse agendamento?');
+    if (confirm) {
+      //setSchedule({ ...schedule, status: "Cancelado" })
+      concludeCancel("Cancelado", "cancelar");
+    }
+  }
+
+  const handleOk = () => {
+    const confirm = window.confirm('Ao concluir o agendamento automaticamente o sistema vai dar entrada no restante do pagamento, DESAJA CONFIRMA A CONCLUSÃO?');
+    if (confirm) {
+      concludeCancel("Concluido", "concluir");
+    }
+  }
 
   useEffect(() => {
-
     setIsLoader(true);
     makeRequest({ url: `/scheduleds/${scheduleId}` })
       .then(response => setSchedule(response.data))
@@ -41,8 +72,8 @@ const ScheduleDetails = () => {
               schedule?.status !== "Concluido" && (
                 schedule?.status !== "Cancelado" &&
                 <div className="button-container">
-                  <button type="button" className="btn btn-outline-danger">CANCELAR</button>
-                  <button className="btn btn-primary text-white button-green" type="button">CONCLUIR</button>
+                  <button type="button" className="btn btn-outline-danger" onClick={handleCancel}>CANCELAR</button>
+                  <button className="btn btn-primary text-white button-green" onClick={handleOk} type="button">CONCLUIR</button>
                 </div>
               )
 
