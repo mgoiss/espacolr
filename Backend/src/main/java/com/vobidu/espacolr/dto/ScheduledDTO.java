@@ -2,7 +2,6 @@ package com.vobidu.espacolr.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Positive;
 
 import com.vobidu.espacolr.entities.Client;

@@ -25,14 +25,14 @@ const CardList = ({ user, path, onRemove }: Prop) => {
           type="button"
         >
           EDITAR
-                </Link>
+        </Link>
         <button
           className="btn btn-outline-danger ml-4 card-list-button"
           type="button"
           onClick={() => onRemove(user.id)}
         >
           EXCLUIR
-                </button>
+        </button>
       </div>
     </div>
   );
