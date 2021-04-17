@@ -1,6 +1,7 @@
 package com.vobidu.espacolr.resources;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -54,12 +55,21 @@ public class ScheduledResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	//FAZER UMA VERIFICAÇÃO DO ANO SOLICITADO E O MES
-	@GetMapping(value = "/month/{month}")
-	public ResponseEntity<List<ScheduledDTO>> findMonth(@PathVariable Long month) {
-		List<ScheduledDTO> dto = service.findMonth(month.intValue()); //Pegando os dados no banco por meio do medo findAll
-  
-		return ResponseEntity.ok().body(dto); //Retornando a lista na requisição
+	@GetMapping(value = "/filters")
+	public ResponseEntity<List<ScheduledDTO>> findFilters(
+			@RequestParam(value = "month", defaultValue = "0") Integer month,
+			@RequestParam(value = "status", defaultValue = "all") String status,
+			@RequestParam(value = "client", defaultValue = "all") String client
+			) {
+		
+		if (month == 0) {
+			month = LocalDate.now().getMonthValue();
+		}
+		
+		List<ScheduledDTO> dto = service.findFilters(month, status, client);
+		
+		return ResponseEntity.ok().body(dto);
+		//return ResponseEntity.ok().body(month.toString() + " + " + status + " + " + client);
 	}
 	
 	//FAZER UMA VERIFICAÇÃO DO ANO SOLICITADO E O MES

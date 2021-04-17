@@ -127,7 +127,7 @@ public class ScheduledService {
 		return freeDate;
 	}
 	//Listando os agendamentos por mês
-	public List<ScheduledDTO> findMonth(int month) {
+	public List<ScheduledDTO> findFilters(int month, String status, String client) {
 		LocalDate date = LocalDate.of(LocalDate.now().getYear(), month, 1);
 		List<ScheduledDTO> list = new ArrayList<ScheduledDTO>();
 		
@@ -137,8 +137,27 @@ public class ScheduledService {
 			Scheduled currentDate = repository.findByDate(date);
 				
 			if (currentDate != null) {	
-					
-				list.add(new ScheduledDTO(currentDate, currentDate.getClient()));		//Adicionando a data disponivel						
+				Boolean AddList = false;
+				
+				if (!(status.contains("all")) && !(client.contains("all"))) { //Verificando se foi informado o nome e status como forma de filtragem
+					if ((currentDate.getStatus().contains(status)) && (currentDate.getClient().getName().contains(client))) { //Verificando se o nome e status correspondem
+						AddList = true;
+					}					
+				} else if (!(status.contains("all"))) { //Verificando se foi informado o status
+					if (currentDate.getStatus().contains(status)) { //Verificando se o status corresponde
+						AddList = true;
+					}					
+				} else if (!(client.contains("all"))) { //Verificando se foi informado o nome
+					if (currentDate.getClient().getName().contains(client)) { //Verificando se o nome corresponde
+						AddList = true;
+					}					
+				} else { //Se não for filtrado por Status e Cliente
+					AddList = true;
+				}
+				
+				if (AddList) {
+					list.add(new ScheduledDTO(currentDate, currentDate.getClient()));
+				}
 			}							
 		}
 		

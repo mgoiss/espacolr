@@ -23,10 +23,11 @@ const ScheduleList = () => {
   useEffect(() => {
 
     //Passando parametros
-    // const params = {
-    //   page: activePage,
-    //   linesPerPage: 31
-    // }
+    const params = {
+      month: 1,//dayjs().month() + 1,
+      status: '',
+      client: ''
+    }
 
     // //Iniciando o Loading
     // setIsLoading(true)
@@ -37,7 +38,7 @@ const ScheduleList = () => {
     //     setIsLoading(false);
     //   });
     setIsLoading(true)
-    makeRequest({ url: `/scheduleds/month/1` })
+    makeRequest({ url: `/scheduleds/filters`, params })
       .then(response => setScheduleResponse(response.data))
       .finally(() => {
         //Finalizando o Loading
