@@ -86,7 +86,7 @@ const Scheduling = () => {
       clearErrors('mount') //Apagando os erros do campo mês
       DayList();
     }
-  }, [mountSelect, clearErrors, setError])
+  }, [mountSelect, clearErrors, setError, DayList])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

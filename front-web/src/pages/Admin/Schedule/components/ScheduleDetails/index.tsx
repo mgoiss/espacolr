@@ -23,7 +23,7 @@ const ScheduleDetails = () => {
   //status: "Cancelar"
 
   const concludeCancel = (status: string, message: string) => {
-    makePrivateRequest({ url: `/scheduleds/${scheduleId}`, method: 'PUT', data: { ...schedule, status: `${status}`, valuePaid: `${status == "Concluido" ? schedule?.price : schedule?.valuePaid}` } })
+    makePrivateRequest({ url: `/scheduleds/${scheduleId}`, method: 'PUT', data: { ...schedule, status: `${status}`, valuePaid: `${status === "Concluido" ? schedule?.price : schedule?.valuePaid}` } })
       .then(() => {
         toast.success(`Agendamento ${status} com sucesso!`, {
           style: { background: '#81c41d' },

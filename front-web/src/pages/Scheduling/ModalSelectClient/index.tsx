@@ -161,7 +161,7 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
           </div>
         </section>
         <footer className={`footer-modal ${isRegister ? 'd-flex flex-row-reverse' : ''}`}>
-          {isRegister == false && (
+          {isRegister === false && (
             clientResponse && (
               clientResponse.totalPages > 1 && (
                 <Pagination

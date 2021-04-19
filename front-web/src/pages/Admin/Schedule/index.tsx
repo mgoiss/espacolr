@@ -6,7 +6,6 @@ import ScheduleCard from './components/scheduleCard';
 import ScheduleCardLoader from './components/Loaders/ScheduleCardLoader';
 import './styles.scss';
 import ScheduleFilters, { FilterForm } from 'core/components/ScheduleFilters';
-import dayjs from 'dayjs';
 
 const ScheduleList = () => {
 
