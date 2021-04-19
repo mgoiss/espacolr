@@ -45,8 +45,9 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(PageRequest pageRequest) {
-		Page<User> page = repository.findAll(pageRequest);
+	public Page<UserDTO> findAllPaged(String firstName, PageRequest pageRequest) {
+		
+		Page<User> page = repository.findAllFilter(firstName, pageRequest);
 		repository.find(page.toList()); //Evitando as N+1 consulta, pois já será pego todos os ROLES aqui e não será feita varias consultas na linha abaixo
 		return page.map(x -> new UserDTO(x));
 	}

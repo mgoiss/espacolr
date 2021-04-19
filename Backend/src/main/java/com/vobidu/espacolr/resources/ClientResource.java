@@ -32,6 +32,7 @@ public class ClientResource {
 	
 	@GetMapping
 	public ResponseEntity<Page<ClientDTO>> findAll(
+			@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,	
@@ -40,7 +41,7 @@ public class ClientResource {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		
-		Page<ClientDTO> list = service.findAllPaged(pageRequest);
+		Page<ClientDTO> list = service.findAllPaged(name, pageRequest);
 		
 		return ResponseEntity.ok().body(list);
 	}

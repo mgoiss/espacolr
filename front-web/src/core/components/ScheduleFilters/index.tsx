@@ -67,7 +67,7 @@ const ScheduleFilters = ({ onSearch }: Props) => {
   }
 
   return (
-    <div className="card-base border-radius-10 schedule-filters-container">
+    <div className="card-base border-radius-10 filters-container">
       <div className="input-search">
         <input
           type="text"

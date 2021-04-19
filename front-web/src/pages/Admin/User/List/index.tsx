@@ -8,6 +8,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './styles.scss';
+import NameFilters from 'core/components/NameFilters';
 
 const List = () => {
 
@@ -18,6 +19,7 @@ const List = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activePage, setActivePage] = useState(0);
   const history = useHistory();
+  const [name, setName] = useState('');
 
   const getUsers = useCallback(() => {
     //Passando parametros
@@ -25,7 +27,8 @@ const List = () => {
       page: activePage,
       linesPerPage: 5,
       direction: 'DESC',
-      orderBy: 'id'
+      orderBy: 'id',
+      firstName: name
     }
 
     //Pegando o Id do usuario no localStorage
@@ -40,11 +43,21 @@ const List = () => {
         //Finalizando o Loading
         setIsLoading(false);
       });
-  }, [activePage])
+  }, [activePage, name])
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  const handleChageName = (name: string) => {
+    setActivePage(0);
+    setName(name);
+  }
+
+  const clearFilters = () => {
+    setActivePage(0);
+    setName('');
+  }
 
   const handleCreate = () => {
     history.push('/admin/user/create');
@@ -77,13 +90,20 @@ const List = () => {
 
   return (
     <div className="user-list">
-      <div className="d-flex">
-        <button className="btn btn-primary text-white btn-lg button-pattern" type="button" onClick={handleCreate}>
-          ADICIONAR
-                </button>
-        <button className="btn btn-primary text-white btn-lg ml-4 button-pattern" type="button" onClick={handleMyData}>
-          MEUS DADOS
-                </button>
+      <div className="d-flex justify-content-between">
+        <div>
+          <button className="btn btn-primary text-white btn-lg button-pattern" type="button" onClick={handleCreate}>
+            ADICIONAR
+        </button>
+          <button className="btn btn-primary text-white btn-lg ml-4 button-pattern" type="button" onClick={handleMyData}>
+            MEUS DADOS
+        </button>
+        </div>
+        <NameFilters
+          name={name}
+          handleChageName={handleChageName}
+          clearFilters={clearFilters}
+        />
       </div>
       <div className="user-list-container">
         {isLoading ? /*se true*/ <CardListLoader /> : /*se false*/ (

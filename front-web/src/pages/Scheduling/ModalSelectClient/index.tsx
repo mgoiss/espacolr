@@ -1,3 +1,4 @@
+import NameFilters from 'core/components/NameFilters';
 import Pagination from 'core/components/Pagination';
 import { Client, ClientResponse } from 'core/types/Client';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
@@ -29,6 +30,7 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [activePage, setActivePage] = useState(0);
+  const [name, setName] = useState('');
 
   //Metodo para retornar o valor selecionado na lista de clientes
   const handleState = (client: Client) => {
@@ -41,7 +43,8 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
       page: activePage,
       linesPerPage: 5,
       direction: 'DESC',
-      ordeBy: 'id'
+      ordeBy: 'id',
+      name: name
     }
 
     setIsLoading(true);
@@ -50,7 +53,7 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
       .finally(() => {
         setIsLoading(false);
       })
-  }, [activePage, show]);
+  }, [activePage, show, name]);
   //Cadastrar Cliente
   const onsubmitModal = (data: FormClient) => {
     console.log(data);
@@ -60,6 +63,16 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
       data
     })
       .then(respose => { handleState(respose.data) })
+  }
+
+  const handleChageName = (name: string) => {
+    setActivePage(0);
+    setName(name);
+  }
+
+  const clearFilters = () => {
+    setActivePage(0);
+    setName('');
   }
 
   // Funções para exibir e fechar o modal
@@ -85,8 +98,13 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
           <button className="btn-header-close" onClick={closeModal} />
         </header>
         <section className="body-modal">
-          <div>
-            <button type="button" className="btn btn-primary text-white button-base mt-4" onClick={registerClient}>ADICIONAR</button>
+          <div className="d-flex justify-content-between">
+            <button type="button" className="btn btn-primary text-white button-base" onClick={registerClient}>ADICIONAR</button>
+            <NameFilters
+              name={name}
+              handleChageName={handleChageName}
+              clearFilters={clearFilters}
+            />
           </div>
           <div className="mt-5">
             {isRegister ? (
