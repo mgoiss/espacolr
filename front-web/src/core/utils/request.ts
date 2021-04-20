@@ -15,7 +15,7 @@ type LoginData = {
     password: string;
 }
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://mg-espacolr.herokuapp.com';
 
 //Metodo para interceptar um erro 401
 axios.interceptors.response.use(function (response) {
