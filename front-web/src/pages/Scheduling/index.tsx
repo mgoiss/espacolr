@@ -1,6 +1,6 @@
 import AuthCard from 'pages/Auth/Card';
 import './styles.scss'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import dayjs from 'dayjs';
@@ -47,10 +47,10 @@ const Scheduling = () => {
   }
 
   //Metodo para listar e carregar o dias disponiveias para agendamento
-  const DayList = () => {
+  const DayList = useCallback(() => {
     makePrivateRequest({ url: `/scheduleds/date/${dayjs().year()}&${mountSelect}` })
       .then(response => setListDaySelect(response.data))
-  }
+  }, [mountSelect])
 
   //Metodo de Cadastro
   const onSubmit = (data: FormState) => {
