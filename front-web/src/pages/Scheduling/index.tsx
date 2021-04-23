@@ -31,6 +31,7 @@ const Scheduling = () => {
   const { register, handleSubmit, errors, setError, clearErrors, setValue } = useForm<FormState>();
   const [mountSelect, setMountSelect] = useState(dayjs().month() + 1);
   const [daySelect, setDaySelect] = useState('');
+  const [isDaySelect, setIsDaySelect] = useState(false);
   const [listDaySelect, setListDaySelect] = useState<FormDay[]>([]);
   const history = useHistory();
 
@@ -48,8 +49,10 @@ const Scheduling = () => {
 
   //Metodo para listar e carregar o dias disponiveias para agendamento
   const DayList = useCallback(() => {
+    setIsDaySelect(true)
     makePrivateRequest({ url: `/scheduleds/date/${dayjs().year()}&${mountSelect}` })
       .then(response => setListDaySelect(response.data))
+      .finally(() => { setIsDaySelect(false) })
   }, [mountSelect])
 
   //Metodo de Cadastro
@@ -75,13 +78,14 @@ const Scheduling = () => {
 
   //Use Effect do campo mount
   useEffect(() => {
+    setListDaySelect([]); //Limpando a lista de datas
+    setIsDaySelect(true)
     if (mountSelect < (dayjs().month() + 1)) { //Verificando se o mês selecionado é menor que o atual
       //Criando o erro caso o mês seja menor que o atual
       setError("mount", {
         type: "manual",
         message: "O mês menor que o atual"
       });
-      setListDaySelect([]); //Limpando a lista de datas
     } else {
       clearErrors('mount') //Apagando os erros do campo mês
       DayList();
@@ -130,6 +134,7 @@ const Scheduling = () => {
               className={`form-control input-base select-base mt-4 ${errors.date ? 'is-invalid' : ''}`}
               name="date"
               value={daySelect}
+              disabled={isDaySelect}
               onChange={e => setDaySelect(e.target.value)}
               ref={register({
                 required: "Campo obrigatório",
