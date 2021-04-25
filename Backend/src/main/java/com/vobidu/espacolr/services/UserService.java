@@ -83,6 +83,10 @@ public class UserService implements UserDetailsService {
 		try {
 			User entity = repository.getOne(id);
 			copyDtoToEntity(dto, entity);
+			
+			//Atualizando a senha
+			entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+			
 			entity = repository.save(entity);
 			return new UserDTO(entity);
 		}
