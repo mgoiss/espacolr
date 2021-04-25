@@ -82,6 +82,7 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
   };
   const closeModal = () => setShow(false);
   const registerClient = () => setIsRegister(true);
+  const handleCancel = () => setIsRegister(false);
 
   return (
     <div>
@@ -149,6 +150,7 @@ const ModalSearch = ({ clientStateCallback }: Props) => {
                 </div>
                 <div className="d-flex flex-row-reverse">
                   <button className="btn btn-primary text-white button-base mt-4">SALVAR</button>
+                  <button type="button" className="btn btn-outline-danger button-base mt-4 mr-3" onClick={handleCancel}>CANCELAR</button>
                 </div>
               </form>
             ) : isLoading ? <CardListLoader /> : (
