@@ -8,6 +8,7 @@ import './styles.scss';
 import ScheduleFilters, { FilterForm } from 'core/components/ScheduleFilters';
 
 const ScheduleList = () => {
+  document.title = "Espaço LR | Agendamentos";
 
   const [scheduleResponse, setScheduleResponse] = useState<Schedule[]>();
   const [isLoading, setIsLoading] = useState(false);

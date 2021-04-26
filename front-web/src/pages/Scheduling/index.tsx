@@ -28,6 +28,8 @@ type FormDay = {
 
 const Scheduling = () => {
 
+  document.title = "Espaço LR | Agendar";
+
   const { register, handleSubmit, errors, setError, clearErrors, setValue } = useForm<FormState>();
   const [mountSelect, setMountSelect] = useState(dayjs().month() + 1);
   const [daySelect, setDaySelect] = useState('');
@@ -94,6 +96,7 @@ const Scheduling = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+
       <AuthCard>
 
         {/*Status*/}

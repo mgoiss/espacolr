@@ -15,6 +15,7 @@ type ParamsType = {
 }
 
 const ScheduleDetails = () => {
+  document.title = `Espaço LR | Detalhe Agendamento`;
 
   const { scheduleId } = useParams<ParamsType>();
   const [schedule, setSchedule] = useState<Schedule>();

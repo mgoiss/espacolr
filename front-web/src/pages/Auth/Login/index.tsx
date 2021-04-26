@@ -17,6 +17,8 @@ type locationState = {
 }
 
 const Login = () => {
+  document.title = "Espaço LR | Login";
+
   const { register, handleSubmit, errors } = useForm<FormState>();
   const [hasError, setHasError] = useState(false);
   const history = useHistory();

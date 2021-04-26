@@ -7,6 +7,8 @@ import './styles.scss';
 import Pagination from 'core/components/Pagination';
 
 const ListClient = () => {
+  document.title = "Espaço LR | Clientes";
+
   const [clientResponse, setClientResponse] = useState<ClientResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [activePage, setActivePage] = useState(0);

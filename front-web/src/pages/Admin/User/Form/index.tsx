@@ -31,6 +31,8 @@ const Form = () => {
   const { userId } = useParams<ParamsType>();
   const isEditing = userId !== 'create'
 
+  document.title = `Espaço LR | ${isEditing ? "Editar Usuário" : "Criar Usuário"}`;
+
   useEffect(() => {
     if (isEditing) {
       makePrivateRequest({ url: `/users/${userId}` })

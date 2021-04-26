@@ -11,6 +11,7 @@ import './styles.scss';
 import NameFilters from 'core/components/NameFilters';
 
 const List = () => {
+  document.title = "Espaço LR | Usuários";
 
   //PEGANDO O ID DO USUÁRIO ATUAL
   const [currentUser, setCurrentUser] = useState('');
