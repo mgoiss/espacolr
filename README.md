@@ -4,7 +4,7 @@
 
 
 https://espacolr.netlify.app/
-- Email: admin
+- Email: admin@gmail.com
 - Senha: 123456
 
 O ESPAÇO LR é uma aplicação construida como forma de fixar meus conhecimento em REACT e SPRING. Esse sistema visa possibilitar o agendamento de um espaço de evento, onde o usuário consegue agendar, acompanhar os agendamentos, criar usuário e clientes.
